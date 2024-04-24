@@ -1,0 +1,107 @@
+:root {
+    --main-color: #cecece;
+    --button-color: rgb(36, 47, 112);
+    background: linear-gradient(rgb(12, 14, 39), rgba(18, 31, 66, 0.83)) 0% 0% / auto fixed, url(https://my.logiscool.com/static/media/space-bg.af3c9b72.jpg) 0% 0% / 1270px;
+    height: 100vh;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+    color: var(--main-color);
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    a {
+        color: var(--main-color);
+        text-decoration: none;
+    }
+
+}
+
+header {
+    font-size: 1.6rem;
+    h3 {
+        display: flex;
+        gap: 20px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 7px;
+        
+        #avatar-picture {
+            height: 40px;
+            border-radius: 10px;
+        }
+    }
+
+    #short-links {
+        display: flex;
+        gap: 10px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    a {
+        font-size: .8rem;
+        padding: 10px;
+        border-radius: 40px;
+        border: 2px solid var(--button-color);
+    }
+
+}
+
+summary {
+    margin: 10px;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    details a {
+        font-size: 1rem;
+        background-color: rgb(36, 48, 112);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 40px;
+        padding: 12px;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.929);
+        width: max(30%, 350px);
+        margin: auto;
+        margin-bottom: 10px;
+        transition: background-color 0.1s;
+        height: 20px;
+        position: relative;
+
+        &:hover {
+            background-color: rgb(22, 31, 78);
+            border-color: #cecece00;
+        }
+
+        img {
+            position: absolute;
+            height: 30px;
+            width: auto;
+            left: 12px;
+            border-radius: 100%;
+        }
+    }
+}
+
+#footer-img img {
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    width:100%;
+    height:100px;
+    z-index: -1;
+}
