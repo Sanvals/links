@@ -78,11 +78,13 @@ article {
         margin: auto;
         margin-bottom: 10px;
         transition: background-color 0.1s;
+        transition: width 0.2s;
         height: 20px;
         position: relative;
 
         &:hover {
             background-color: rgb(22, 31, 78);
+            width: max(20%, 250px);
             border-color: #cecece00;
         }
 
