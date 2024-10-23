@@ -624,7 +624,7 @@
         function startCheckingForUrls(serverIP) {
             if (intervalId) clearInterval(intervalId); // Clear any existing interval
             intervalId = setInterval(() => {
-                fetch(`https://${serverIP}:5000/get_url`)  // Use the constructed IP
+                fetch(`http://${serverIP}:5000/get_url`)  // Use the constructed IP
                     .then(response => response.json())
                     .then(data => {
                         if (data.url && data.url !== lastUrl) {
