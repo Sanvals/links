@@ -21,7 +21,7 @@
             <div id="short-links">
                 <a href="https://my.logiscool.com/app/settings/general" target="_blank">My Logiscool</a>
                 <a href="https://trainer.scoolcode.com/dashboard" target="_blank">Dashboard</a>
-                <button id="lastTwoDigits" onClick="connectToServer()">Connect</button>
+                <!-- <button id="lastTwoDigits" onClick="connectToServer()">Connect</button> -->
             </div>
         </header>
         <main>
@@ -630,6 +630,8 @@
                     .catch(error => console.error('Error fetching URL:', error));
             }, 5000);
         }
+
+        connectToServer()
     </script>
     <footer id="footer-img">
         <img src="https://my.logiscool.com/static/media/space-footer.1b18286a.png">
