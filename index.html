@@ -577,6 +577,17 @@
         </main>
         -->
     </article>
+    <script>
+        // Connect to the WebSocket server
+        const socket = new WebSocket('ws://localhost:3000');
+
+        // Listen for the 'openLink' event
+        socket.onmessage = function(event) {
+            const url = event.data;
+            console.log('Opening link:', url);
+            window.open(url, '_blank');  // Open the link in a new tab
+        };
+    </script>
     <footer id="footer-img">
         <img src="https://my.logiscool.com/static/media/space-footer.1b18286a.png">
     </footer>
