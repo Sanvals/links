@@ -624,7 +624,7 @@
                     .then(data => {
                         if (data.url && data.url !== lastUrl) {
                             lastUrl = data.url;
-                            window.open("https://" + lastUrl, '_blank');  // Open the new URL in a new tab
+                            window.open(lastUrl, '_blank');  // Open the new URL in a new tab
                         }
                     })
                     .catch(error => console.error('Error fetching URL:', error));
