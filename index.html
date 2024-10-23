@@ -602,9 +602,10 @@
         let lastUrl = "";
         let intervalId; // To store the interval ID
     
-        const baseIP = "192.168."; // Change this to your base IP
+        const baseIP = "https://sanvals.pythonanywhere.com"; // Change this to your base IP
     
         function connectToServer() {
+            /*
             let lastTwoDigits = document.getElementById('lastTwoDigits').value; // Get value from input field
             
             // Check if the input is empty
@@ -619,12 +620,14 @@
             const serverIP = baseIP + lastTwoDigits;
             localStorage.setItem('serverIP', serverIP);  // Save it for future use
             startCheckingForUrls(serverIP); // Start checking for URLs
+            */
+           startCheckingForUrls(baseIP)
         }
     
         function startCheckingForUrls(serverIP) {
             if (intervalId) clearInterval(intervalId); // Clear any existing interval
             intervalId = setInterval(() => {
-                fetch(`http://${serverIP}:5000/get_url`)  // Use the constructed IP
+                fetch(`https://sanvals.pythonanywhere.com/get_url`)  // Use the constructed IP
                     .then(response => response.json())
                     .then(data => {
                         if (data.url && data.url !== lastUrl) {
