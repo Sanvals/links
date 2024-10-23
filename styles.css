@@ -51,6 +51,16 @@ header {
         border-radius: 40px;
         border: 2px solid var(--button-color);
     }
+    button {
+        font-family: "Poppins", sans-serif;
+        font-size: .8rem;
+        padding: 10px;
+        border-radius: 40px;
+        border: 2px solid var(--button-color);
+        background-color: transparent;
+        color: var(--main-color);
+        font-weight: bold;
+    }
 
 }
 

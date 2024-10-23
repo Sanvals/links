@@ -21,6 +21,7 @@
             <div id="short-links">
                 <a href="https://my.logiscool.com/app/settings/general" target="_blank">My Logiscool</a>
                 <a href="https://trainer.scoolcode.com/dashboard" target="_blank">Dashboard</a>
+                <button id="lastTwoDigits" onClick="connectToServer()">Connect</button>
             </div>
         </header>
         <main>
@@ -577,16 +578,63 @@
         </main>
         -->
     </article>
+    <!-- First approach
     <script>
-        // Connect to the WebSocket server
-        const socket = new WebSocket('wss://192.168.18.3:3000');
-
-        // Listen for the 'openLink' event
-        socket.onmessage = function(event) {
-            const url = event.data;
-            console.log('Opening link:', url);
-            window.open(url, '_blank');  // Open the link in a new tab
-        };
+        let lastUrl = "";
+        
+        function checkForUrl() {
+            fetch('http://192.168.18.3:5000/get_url')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.url && data.url !== lastUrl) {
+                        lastUrl = data.url;
+                        window.open(lastUrl, '_blank');  // Open the new URL in a new tab
+                    }
+                })
+                .catch(error => console.error('Error fetching URL:', error));
+        }
+        
+        // Poll the server every 5 seconds
+        setInterval(checkForUrl, 5000);
+        </script>
+    -->
+    <script>
+        let lastUrl = "";
+        let intervalId; // To store the interval ID
+    
+        const baseIP = "192.168."; // Change this to your base IP
+    
+        function connectToServer() {
+            let lastTwoDigits = document.getElementById('lastTwoDigits').value; // Get value from input field
+            
+            // Check if the input is empty
+            if (!lastTwoDigits) {
+                lastTwoDigits = prompt("Enter the 2 digits");
+                // Check if user canceled the prompt or entered an empty value
+                if (!lastTwoDigits) {
+                    return; // Exit the function if no valid input is provided
+                }
+            }
+    
+            const serverIP = baseIP + lastTwoDigits;
+            localStorage.setItem('serverIP', serverIP);  // Save it for future use
+            startCheckingForUrls(serverIP); // Start checking for URLs
+        }
+    
+        function startCheckingForUrls(serverIP) {
+            if (intervalId) clearInterval(intervalId); // Clear any existing interval
+            intervalId = setInterval(() => {
+                fetch(`http://${serverIP}:5000/get_url`)  // Use the constructed IP
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.url && data.url !== lastUrl) {
+                            lastUrl = data.url;
+                            window.open(lastUrl, '_blank');  // Open the new URL in a new tab
+                        }
+                    })
+                    .catch(error => console.error('Error fetching URL:', error));
+            }, 10000);
+        }
     </script>
     <footer id="footer-img">
         <img src="https://my.logiscool.com/static/media/space-footer.1b18286a.png">
