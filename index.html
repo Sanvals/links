@@ -578,7 +578,6 @@
         </main>
         -->
     </article>
-    <!-- Previous attemt (WORKS)
     <script>
         let lastUrl = "";
         let intervalId; // To store the interval ID
@@ -613,24 +612,6 @@
         }
 
         connectToServer()
-    </script>
-     -->
-     <script>
-        if (!!window.EventSource) {
-            // Create an EventSource to listen to the server
-            const source = new EventSource('https://sanvals.pythonanywhere.com/stream');
-
-            // When the server sends a message (URL), open it
-            source.onmessage = function(event) {
-                const newUrl = event.data;
-                if (newUrl) {
-                    console.log('Opening URL:', newUrl);  // For debugging purposes
-                    window.open(newUrl, '_blank');  // Open the URL in a new tab
-                }
-            };
-        } else {
-            console.error("Your browser doesn't support Server-Sent Events.");
-        }
     </script>
     <footer id="footer-img">
         <img src="https://my.logiscool.com/static/media/space-footer.1b18286a.png">
