@@ -61,13 +61,12 @@ header {
         color: var(--main-color);
         font-weight: bold;
     }
-
+    .connected {
+        background-color: green;
+        color: white;
+    }
 }
 
-.connected {
-    background-color: green;
-    color: white;
-}
 
 summary {
     margin: 5px;
