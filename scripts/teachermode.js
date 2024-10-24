@@ -51,9 +51,24 @@
                 if (teacherMode) {
                     revertLinks();
                     teacherMode = false; // Set to normal mode
+                    closeToggles()
                 } else {
                     setTeacherPage();
                     teacherMode = true; // Set to teacher mode
+                    closeToggles()
                 }
             }
         });
+
+        
+        function closeToggles() {
+            toggles = document.querySelectorAll('details');
+            
+            toggles.forEach(toggle => {
+                if (toggle.open) {  
+                    toggle.open = false;
+                } else {
+                    toggle.open = true;
+                }
+            });
+        }
