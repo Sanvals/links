@@ -1,15 +1,24 @@
 let lastUrl = "";
 let intervalId; // To store the interval ID
+let connected = false;
 
 const baseIP = "https://sanvals.pythonanywhere.com"; // Your PythonAnywhere URL
 
 function connectToServer() {
     // Modify the button's background
-    const connectButton = document.getElementById('connect-button');
-    connectButton.classList.add('connected');  // Add 'connected' class to button
-
-    // Directly start checking for URLs with the base IP
-    startCheckingForUrls(baseIP);
+    if (connected) {
+        // Remove 'connected' class from button
+        const connectButton = document.getElementById('connect-button');
+        connectButton.classList.remove('connected');
+        connected = false;
+    } else {
+        // Add 'connected' class to button
+        const connectButton = document.getElementById('connect-button');
+        connectButton.classList.add('connected');  // Add 'connected' class to button
+        connected = true
+        // Directly start checking for URLs with the base IP
+        startCheckingForUrls(baseIP);
+    }
 }
 
 function startCheckingForUrls(serverIP) {
