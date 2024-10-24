@@ -21,7 +21,7 @@
             <div id="short-links">
                 <a href="https://my.logiscool.com/app/settings/general" target="_blank">My Logiscool</a>
                 <a href="https://trainer.scoolcode.com/dashboard" target="_blank">Dashboard</a>
-                <!-- <button id="lastTwoDigits" onClick="connectToServer()">Connect</button> -->
+                <button id="connect-button" onClick="connectToServer()">Connect</button>
             </div>
         </header>
         <main>
@@ -585,6 +585,10 @@
         const baseIP = "https://sanvals.pythonanywhere.com"; // Your PythonAnywhere URL
     
         function connectToServer() {
+            // Modify the button's background
+            const connectButton = document.getElementById('connect-button');
+            connectButton.classList.add('connected');  // Add 'connected' class to button
+
             // Directly start checking for URLs with the base IP
             startCheckingForUrls(baseIP);
         }
@@ -611,7 +615,6 @@
             }, 5000);
         }
 
-        connectToServer()
     </script>
     <footer id="footer-img">
         <img src="https://my.logiscool.com/static/media/space-footer.1b18286a.png">

@@ -64,6 +64,11 @@ header {
 
 }
 
+.connected {
+    background-color: green;
+    color: white;
+}
+
 summary {
     margin: 5px;
 }
