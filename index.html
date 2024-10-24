@@ -578,26 +578,7 @@
         </main>
         -->
     </article>
-    <!-- First approach
-    <script>
-        let lastUrl = "";
-        
-        function checkForUrl() {
-            fetch('http://192.168.18.3:5000/get_url')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.url && data.url !== lastUrl) {
-                        lastUrl = data.url;
-                        window.open(lastUrl, '_blank');  // Open the new URL in a new tab
-                    }
-                })
-                .catch(error => console.error('Error fetching URL:', error));
-        }
-        
-        // Poll the server every 5 seconds
-        setInterval(checkForUrl, 5000);
-        </script>
-    -->
+    <!-- Previous attemt (WORKS)
     <script>
         let lastUrl = "";
         let intervalId; // To store the interval ID
@@ -632,6 +613,24 @@
         }
 
         connectToServer()
+    </script>
+     -->
+     <script>
+        if (!!window.EventSource) {
+            // Create an EventSource to listen to the server
+            const source = new EventSource('https://sanvals.pythonanywhere.com/stream');
+
+            // When the server sends a message (URL), open it
+            source.onmessage = function(event) {
+                const newUrl = event.data;
+                if (newUrl) {
+                    console.log('Opening URL:', newUrl);  // For debugging purposes
+                    window.open(newUrl, '_blank');  // Open the URL in a new tab
+                }
+            };
+        } else {
+            console.error("Your browser doesn't support Server-Sent Events.");
+        }
     </script>
     <footer id="footer-img">
         <img src="https://my.logiscool.com/static/media/space-footer.1b18286a.png">
