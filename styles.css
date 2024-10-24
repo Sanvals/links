@@ -107,6 +107,9 @@ article {
             left: 11px;
         }
     }
+    .active-link {
+        background-color: green;
+    }
 }
 
 #footer-img img {
