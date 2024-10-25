@@ -339,6 +339,16 @@
 			"url": "https://www.tinkercad.com/",
 			"img": "https://cdn-icons-png.flaticon.com/512/13979/13979204.png",
 			"name": "TinkerCad"
+		},
+		{
+			"url": "https://www.autodraw.com/",
+			"img": "https://cdn-icons-png.flaticon.com/512/3528/3528221.png",
+			"name": "AutoDraw"
+		},
+		{
+			"url": "https://www.craiyon.com/",
+			"img": "https://cdn-icons-png.flaticon.com/512/422/422950.png",
+			"name": "Craiyon"
 		}
 	],
 	"Final project examples": [
