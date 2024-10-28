@@ -350,7 +350,7 @@
 		]
 	},
 	"Programming + AI + Design course": {
-		"skipRender": true,
+		"skipRender": false,
 		"links": [
 			{
 				"url": "https://www.tinkercad.com/",
@@ -370,7 +370,7 @@
 		]
 	},
 	"Generative AI Camp": {
-		"skipRender": false,
+		"skipRender": true,
 		"links": [
 			{
 				"url": "https://studio.code.org/s/how-ai-works-2023/lessons/1/levels/1",
@@ -635,7 +635,7 @@
 		]
 	},
 	"Interesting links": {
-		"skipRender": false,
+		"skipRender": true,
 		"links": [
 			{
 				"url": "https://id.blooket.com/login",
