@@ -1,22 +1,20 @@
+// Define the base URL for the teacher's page
+const BASE_URL = "https://sanvals.pythonanywhere.com/set_url/";
+const BASE_IP = "https://sanvals.pythonanywhere.com";
+const CONNECTBUTTON = document.getElementById('connect-button');
+const FETCH_INTERVAL = 5000;
+
 // Define the conditions to store the URL
 let lastUrl = "";
 let intervalId = null
 let connected = false
-
-// Define the base URL for the teacher's page
-const baseUrl = "https://sanvals.pythonanywhere.com/set_url/";
-const baseIP = "https://sanvals.pythonanywhere.com";
-const connectButton = document.getElementById('connect-button');
-
-// Flag to check if teacher mode is active
 let teacherMode = false;
-
-// Store original URLs to revert later
 const originalUrls = new Map();
 
 // Function to change all links to the "teacher page" URLs
 function setTeacherPage() {
-    const links = document.querySelectorAll('a:not(#short-links a)');  // Get all anchor (<a>) tags except those inside #short-links
+    // Get all anchor (<a>) tags except those inside #short-links
+    const links = document.querySelectorAll('a:not(#short-links a)');
     links.forEach(link => {
         const originalUrl = link.getAttribute('href');
         // Check if the original URL is valid before updating
@@ -27,9 +25,9 @@ function setTeacherPage() {
             // Store the original URL before modifying it
             originalUrls.set(link, originalUrl);
 
-            // Prepend the baseUrl only if it's not already using the baseUrl
+            // Prepend the BASE_URL only if it's not already using the BASE_URL
             if (!trimmedUrl.startsWith('sanvals.pythonanywhere.com')) {
-                link.setAttribute('href', baseUrl + encodeURIComponent(trimmedUrl));
+                link.setAttribute('href', BASE_URL + encodeURIComponent(trimmedUrl));
             }
             // Change the link's background color to green
             link.classList.add('active-link');
@@ -70,13 +68,8 @@ document.addEventListener('keydown', (event) => {
 
 function closeToggles() {
     toggles = document.querySelectorAll('details');
-    
     toggles.forEach(toggle => {
-        if (toggle.open) {  
-            toggle.open = false;
-        } else {
-            toggle.open = true;
-        }
+        toggle.open = !toggle.open
     });
 }
 
@@ -85,14 +78,14 @@ function connectToServer() {
     // Modify the button's background
     if (connected) {
         // Remove 'connected' class from button
-        connectButton.classList.remove('connected');
+        CONNECTBUTTON.classList.remove('connected');
         connected = false;
     } else {
         // Add 'connected' class to button
-        connectButton.classList.add('connected');
+        CONNECTBUTTON.classList.add('connected');
         connected = true
         // Directly start checking for URLs with the base IP
-        startCheckingForUrls(baseIP);
+        startCheckingForUrls(BASE_IP);
     }
 }
 
