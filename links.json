@@ -36,6 +36,11 @@
 				"url": "https://www.kodugamelab.com/downloads/",
 				"img": "https://cdn-icons-png.flaticon.com/512/2814/2814666.png",
 				"name": "Kodu Game Lab"
+			},
+			{
+				"url": "https://freesimon.org/",
+				"img": "https://cdn-icons-png.flaticon.com/512/489/489700.png",
+				"name": "Simon Says Online"
 			}
 		]
 	},
