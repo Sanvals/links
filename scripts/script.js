@@ -65,6 +65,16 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
+document.addEventListener('keydown', (event) => {
+    if (event.key.toLowerCase() === 'd') {
+        // Toggle teacher mode
+        if (teacherMode) {// Set to normal mode
+            window.open(`${BASE_IP}/empty`, '_blank');
+        }
+    }
+});
+
+
 
 function closeToggles() {
     toggles = document.querySelectorAll('details');
