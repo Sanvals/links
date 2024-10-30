@@ -645,7 +645,7 @@
 		]
 	},
 	"Interesting links": {
-		"skipRender": true,
+		"skipRender": false,
 		"links": [
 			{
 				"url": "https://id.blooket.com/login",
