@@ -656,6 +656,11 @@
 				"url": "https://www.spaceappschallenge.org/",
 				"img": "https://cdn-icons-png.flaticon.com/512/4776/4776199.png",
 				"name": "Space Apps Challenge"
+			},
+			{
+				"url": "https://drive.google.com/file/d/19sRl2UACvJ6ZZV31n3B0OvqQQbdQmC5K/view?usp=drive_link",
+				"img": "https://cdn-icons-png.flaticon.com/512/282/282100.png",
+				"name": "OpenLink Chrome Extension"
 			}
 		]
 	},
