@@ -112,7 +112,7 @@ article {
     }
 }
 
-#loader {
+#loader, #loader-text, #loader-img {
     transition: opacity 0.5s;
 }
 
@@ -120,6 +120,7 @@ main {
     margin-top: 10px;
     transition: opacity 0.5s;
 }
+
 
 #footer-img img {
     position:fixed;

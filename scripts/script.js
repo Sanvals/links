@@ -1,10 +1,10 @@
 // Define the base URL for the teacher's page
-const BASE_URL = "https://sanvals.pythonanywhere.com/set_url/";
-const BASE_IP = "https://sanvals.pythonanywhere.com";
 const CONNECTBUTTON = document.getElementById('connect-button');
-const FETCH_INTERVAL = 5000;
+const loader = document.querySelector('#loader');
+const container = document.querySelector('main');
 
 // Define the conditions to store the URL
+const BASE_IP = "https://sanvals.pythonanywhere.com";
 let lastUrl = "";
 let intervalId = null
 let connected = false
@@ -25,9 +25,9 @@ function setTeacherPage() {
             // Store the original URL before modifying it
             originalUrls.set(link, originalUrl);
 
-            // Prepend the BASE_URL only if it's not already using the BASE_URL
+            // Prepend the BASE_IP only if it's not already using the BASE_IP
             if (!trimmedUrl.startsWith('sanvals.pythonanywhere.com')) {
-                link.setAttribute('href', BASE_URL + encodeURIComponent(trimmedUrl));
+                link.setAttribute('href', BASE_IP + '/set_url/' + encodeURIComponent(trimmedUrl));
             }
             // Change the link's background color to green
             link.classList.add('active-link');
@@ -47,6 +47,7 @@ function revertLinks() {
         }
         link.classList.remove('active-link'); // Remove the active link class
     });
+    
 }
 
 // Event listener for key press (to detect the "L" key)
@@ -55,33 +56,18 @@ document.addEventListener('keydown', (event) => {
         // Toggle teacher mode
         if (teacherMode) {
             revertLinks();
-            teacherMode = false; // Set to normal mode
-            closeToggles()
+            teacherMode = false;
         } else {
             setTeacherPage();
-            teacherMode = true; // Set to teacher mode
-            closeToggles()
+            teacherMode = true;
         }
     }
-});
 
-document.addEventListener('keydown', (event) => {
     if (event.key.toLowerCase() === 'd') {
         // Toggle teacher mode
-        if (teacherMode) {// Set to normal mode
-            window.open(`${BASE_IP}/empty`, '_blank');
-        }
+        if (teacherMode) window.open(`${BASE_IP}/empty`, '_blank');
     }
 });
-
-
-
-function closeToggles() {
-    toggles = document.querySelectorAll('details');
-    toggles.forEach(toggle => {
-        toggle.open = !toggle.open
-    });
-}
 
 // Manage the connect button behaviour
 function connectToServer() {
@@ -102,7 +88,6 @@ function connectToServer() {
 // Create the checking for url function
 function startCheckingForUrls(serverIP) {
     if (intervalId) clearInterval(intervalId); // Clear any existing interval
-
     // Set an interval to fetch the URL from the server
     intervalId = setInterval(() => {
         fetch(`${serverIP}/get_url`)  // Use the constructed base IP
@@ -125,33 +110,44 @@ function startCheckingForUrls(serverIP) {
 // Fetch links from JSON file
 document.addEventListener('DOMContentLoaded', () => {
     // Catch the two relevant elements on the page
-    const loader = document.querySelector('#loader');
-    const container = document.querySelector('main');
     container.style.opacity = 0;
+
+    function displayError(message) {
+        const errorElement = document.querySelector('#loader-text');
+        const errorImage = document.querySelector('#loader-img');
+        errorElement.textContent = message;
+        errorElement.style.fontWeight = 'bold'; // Optional: make it stand out
+        errorElement.style.margin = '10px 0'; // Optional: add some margin
+        errorImage.style.opacity = 0;
+    }
 
     // Fetch the data from notionserver
     fetch('https://notionserver.vercel.app')
         .then(response => {
             if (!response.ok) {
+                displayError('Network error');
                 throw new Error('Network response was not ok');
             }
-            return response.json(); // Parse the JSON data
+            return response.json();
         })
         .then(data => {
         // Process and display the data
+            if (!Object.keys(data).length) {
+                displayError('Links are empty');
+                return;
+            }
             loader.style.opacity = 0;
             setTimeout(() => {
                 displayLinks(data)
                 container.style.opacity = 100;
             }, 500)
         })
-        .catch(error => console.error('Error fetching data:', error));
+        .catch(error => {
+            console.error('Error fetching data:', error)
+            displayError('No links found');
+        });
     
     function displayLinks(data) {
-        // Get a reference to the container where you want to display the links
-        const container = document.getElementById('dynamic-links-container');
-        const loader = document.getElementById('loader');
-        
         // Iterate over each tag in the data
         Object.keys(data).forEach(tag => {
             const catData = data[tag]
@@ -182,13 +178,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
         })
     }
-
-    document.addEventListener('keydown', (event) => {
-        if (event.key.toLowerCase() === 'l') {
-            document.querySelectorAll('details').forEach(detail => {
-                detail.open = !detail.open;
-            });
-        }
-    });
 });
-
