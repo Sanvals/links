@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Catch the two relevant elements on the page
     const loader = document.querySelector('#loader');
     const container = document.querySelector('main');
+    container.style.opacity = 0;
 
     // Fetch the data from notionserver
     fetch('https://notionserver.vercel.app')
@@ -138,7 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
         // Process and display the data
-            displayLinks(data)
+            loader.style.opacity = 0;
+            setTimeout(() => {
+                displayLinks(data)
+                container.style.opacity = 100;
+            }, 500)
         })
         .catch(error => console.error('Error fetching data:', error));
     
@@ -163,6 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 const imgElement = document.createElement('img');
                 imgElement.src = linkData.icon;
+                imgElement.loading = "lazy";
+                imgElement.alt = `${linkData.name} icon`;
     
                 linkElement.appendChild(imgElement);
                 linkElement.appendChild(document.createTextNode(linkData.name));
@@ -173,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
             details.appendChild(section);
             container.appendChild(details);
 
-            loader.style.display = "none";
         })
     }
 

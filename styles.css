@@ -112,6 +112,15 @@ article {
     }
 }
 
+#loader {
+    transition: opacity 0.5s;
+}
+
+main {
+    margin-top: 10px;
+    transition: opacity 0.5s;
+}
+
 #footer-img img {
     position:fixed;
     bottom:0;
