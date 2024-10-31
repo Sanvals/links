@@ -124,45 +124,59 @@ function startCheckingForUrls(serverIP) {
 
 // Fetch links from JSON file
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('./links.json')
-        .then(response => response.json())
+    // Catch the two relevant elements on the page
+    const loader = document.querySelector('#loader');
+    const container = document.querySelector('main');
+
+    // Fetch the data from notionserver
+    fetch('https://notionserver.vercel.app')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Parse the JSON data
+        })
         .then(data => {
-            const container = document.querySelector('main');
-
-            // Loop through each category in the JSON data
-            Object.keys(data).forEach(category => {
-                const categoryData = data[category];
-                
-                // Check if category has skipRender set to true, if so, skip rendering
-                if (categoryData.skipRender) return;
-
-                const detailsElement = document.createElement('details');
-                const summaryElement = document.createElement('summary');
-                summaryElement.textContent = category;
-
-                const sectionElement = document.createElement('section');
-
-                categoryData.links.forEach(linkData => {
-                    const linkElement = document.createElement('a');
-                    linkElement.href = linkData.url;
-                    linkElement.target = "_blank";
-
-                    const imgElement = document.createElement('img');
-                    imgElement.src = linkData.img;
-
-                    linkElement.appendChild(imgElement);
-                    linkElement.appendChild(document.createTextNode(linkData.name));
-
-                    sectionElement.appendChild(linkElement);
-                });
-
-                detailsElement.appendChild(summaryElement);
-                detailsElement.appendChild(sectionElement);
-                container.appendChild(detailsElement);
+        // Process and display the data
+            displayLinks(data)
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    
+    function displayLinks(data) {
+        // Get a reference to the container where you want to display the links
+        const container = document.getElementById('dynamic-links-container');
+        const loader = document.getElementById('loader');
+        
+        // Iterate over each tag in the data
+        Object.keys(data).forEach(tag => {
+            const catData = data[tag]
+            const details = document.createElement('details');
+            const summary = document.createElement('summary')
+            summary.textContent = tag;
+    
+            const section = document.createElement('section');
+    
+            catData.forEach(linkData => {
+                const linkElement = document.createElement('a');
+                linkElement.href = linkData.url;
+                linkElement.target = "_blank";
+    
+                const imgElement = document.createElement('img');
+                imgElement.src = linkData.icon;
+    
+                linkElement.appendChild(imgElement);
+                linkElement.appendChild(document.createTextNode(linkData.name));
+    
+                section.appendChild(linkElement);
             });
-        });
+            details.appendChild(summary);
+            details.appendChild(section);
+            container.appendChild(details);
 
-    // Toggle visibility by pressing "L"
+            loader.style.display = "none";
+        })
+    }
+
     document.addEventListener('keydown', (event) => {
         if (event.key.toLowerCase() === 'l') {
             document.querySelectorAll('details').forEach(detail => {
