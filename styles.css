@@ -1,7 +1,9 @@
 :root {
     --main-color: #cecece;
     --button-color: rgb(36, 47, 112);
-    background: linear-gradient(rgb(12, 14, 39), rgba(18, 31, 66, 0.83)) 0% 0% / auto fixed, url(https://my.logiscool.com/static/media/space-bg.af3c9b72.jpg) 0% 0% / 1270px;
+    --button-shadow: rgb(21, 32, 83);
+    --background-color: linear-gradient(rgb(12, 14, 39), rgba(18, 31, 66, 0.83)) 0% 0% / auto fixed, url(https://my.logiscool.com/static/media/space-bg.af3c9b72.jpg) 0% 0% / 1270px;
+    background: var(--background-color);
     height: 100vh;
 }
 
@@ -79,7 +81,7 @@ article {
 
     details a {
         font-size: 1rem;
-        background-color: rgb(36, 48, 112);
+        background-color: var(--button-color);
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -96,7 +98,7 @@ article {
         position: relative;
 
         &:hover {
-            background-color: rgb(22, 31, 78);
+            background-color: var(--button-shadow);
             border-color: #cecece00;
         }
 
@@ -129,4 +131,31 @@ main {
     right:0;
     width:100%;
     z-index: -1;
+}
+
+#pageStyle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: fit-content;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 20px;
+}
+
+.styleImage {
+    position: relative;
+    height: 30px;
+    width: auto;
+    border-radius: 100%;
+    padding: 10px;
+    background-color: var(--button-color);
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: var(--button-shadow);
+    }
 }
