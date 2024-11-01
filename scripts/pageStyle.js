@@ -31,6 +31,15 @@ function changeMood(mood) {
 
 // Add event listeners to the mood images
 const styleImages = document.querySelectorAll('.styleImage');
+
+styleImages.forEach((img, index) => {            
+    if (currentMood === index + 1) {
+        img.style.display = 'none';
+    } else {
+        img.style.display = 'block';
+    }
+})
+
 styleImages.forEach((img, index) => {
     img.addEventListener('click', () => {
         currentMood = index + 1

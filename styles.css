@@ -159,3 +159,10 @@ main {
         background-color: var(--button-shadow);
     }
 }
+
+@media (max-width: 600px) {
+    .styleImage {
+        height: 25px; /* Smaller size for mobile */
+        padding: 5px; /* Adjust padding */
+    }
+}
