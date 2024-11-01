@@ -141,35 +141,45 @@ document.addEventListener('DOMContentLoaded', () => {
             displayError('No links found');
         });
     
-    function displayLinks(data) {
-        // Iterate over each tag in the data
-        Object.keys(data).forEach(tag => {
-            const catData = data[tag]
-            const details = document.createElement('details');
-            const summary = document.createElement('summary')
-            summary.textContent = tag;
-    
-            const section = document.createElement('section');
-    
-            catData.forEach(linkData => {
-                const linkElement = document.createElement('a');
-                linkElement.href = linkData.url;
-                linkElement.target = "_blank";
-    
-                const imgElement = document.createElement('img');
-                imgElement.src = linkData.icon;
-                imgElement.loading = "lazy";
-                imgElement.alt = `${linkData.name} icon`;
-    
-                linkElement.appendChild(imgElement);
-                linkElement.appendChild(document.createTextNode(linkData.name));
-    
-                section.appendChild(linkElement);
+        function displayLinks(data) {
+            const fragment = document.createDocumentFragment(); // Create a document fragment for better performance
+        
+            // Iterate over each category in the data
+            Object.entries(data).forEach(([tag, catData]) => {
+                const details = document.createElement('details');
+                const summary = document.createElement('summary');
+                summary.textContent = tag;
+                
+                details.appendChild(summary);
+        
+                const section = document.createElement('section');
+                section.setAttribute('aria-label', `${tag} links`); // Accessibility improvement
+        
+                // Loop through each link object in the category
+                catData.forEach(linkData => {
+                    const linkElement = document.createElement('a');
+                    linkElement.href = linkData.url;
+                    linkElement.target = "_blank";
+                    linkElement.classList.add('link-item'); // Add class for easier styling
+                    linkElement.setAttribute('aria-label', linkData.name); // Accessibility improvement
+        
+                    // Icon image
+                    const imgElement = document.createElement('img');
+                    imgElement.src = linkData.icon;
+                    imgElement.loading = "lazy";
+                    imgElement.alt = `${linkData.name} icon`;
+                    imgElement.classList.add('link-icon'); // Add class for easier styling
+        
+                    // Assemble link element
+                    linkElement.appendChild(imgElement);
+                    linkElement.appendChild(document.createTextNode(linkData.name));
+                    section.appendChild(linkElement);
+                });
+        
+                details.appendChild(section);
+                fragment.appendChild(details);
             });
-            details.appendChild(summary);
-            details.appendChild(section);
-            container.appendChild(details);
-
-        })
-    }
+        
+            container.appendChild(fragment); // Append all elements at once for efficiency
+        }
 });
