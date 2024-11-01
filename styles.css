@@ -52,6 +52,12 @@ header {
         padding: 10px;
         border-radius: 40px;
         border: 2px solid var(--button-color);
+        transition: background-color, border-color 0.2s;
+
+        &:hover {
+            background-color: var(--button-shadow);
+            border-color: var(--button-shadow);
+        }
     }
     button {
         font-family: "Poppins", sans-serif;
@@ -62,6 +68,13 @@ header {
         background-color: transparent;
         color: var(--main-color);
         font-weight: bold;
+        transition: background-color, border-color 0.2s;
+
+        &:hover {
+            background-color: var(--button-shadow);
+            border-color: var(--button-shadow);
+            cursor: pointer;
+        }
     }
     .connected {
         background-color: green;

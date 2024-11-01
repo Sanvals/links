@@ -13,8 +13,8 @@ const moods = {
     },
     mood2: {
         footerImg: 'https://my.logiscool.com/static/media/halloween_footer.09088135.webp',
-        buttonColor: 'rgb(255, 123, 10)',
-        buttonShadow: 'rgb(132, 69, 69)',
+        buttonColor: 'rgb(181, 71, 5)',
+        buttonShadow: 'rgb(153, 35, 35)',
         backColor: 'fixed rgb(67, 35, 95)'
     }
 };
