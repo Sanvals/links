@@ -50,24 +50,18 @@ function revertLinks() {
     
 }
 
-// Event listener for key press (to detect the "L" key)
+// Event listener for key presses)
 document.addEventListener('keydown', (event) => {
-    if (event.key.toLowerCase() === 'l') {
-        // Toggle teacher mode
-        if (teacherMode) {
-            revertLinks();
-            teacherMode = false;
-        } else {
-            setTeacherPage();
-            teacherMode = true;
-        }
-    }
-
-    if (event.key.toLowerCase() === 'd') {
-        // Toggle teacher mode
-        if (teacherMode) window.open(`${BASE_IP}/empty`, '_blank');
-    }
+    const key = event.key.toLowerCase();
+    
+    if (key === 'l') toggleTeacherMode()
+    if (key === 'd' && teacherMode) window.open(`${BASE_IP}/empty`, '_blank');
 });
+
+function toggleTeacherMode() {
+    teacherMode ? revertLinks() : setTeacherPage();
+    teacherMode = !teacherMode;
+}
 
 // Manage the connect button behaviour
 function connectToServer() {
