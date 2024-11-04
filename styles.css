@@ -2,6 +2,7 @@
     --main-color: #cecece;
     --button-color: rgb(36, 47, 112);
     --button-shadow: rgb(21, 32, 83);
+    --text-shadow: none;
     --background-color: linear-gradient(rgb(12, 14, 39), rgba(18, 31, 66, 0.83)) 0% 0% / auto fixed, url(https://my.logiscool.com/static/media/space-bg.af3c9b72.jpg) 0% 0% / 1270px;
     background: var(--background-color);
     height: 100vh;
@@ -109,6 +110,7 @@ article {
         transition: background-color 0.2s;
         height: 20px;
         position: relative;
+        text-shadow: var(--text-shadow);
 
         &:hover {
             background-color: var(--button-shadow);
