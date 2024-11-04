@@ -153,7 +153,9 @@ main {
     top: 0;
     right: 0;
     bottom: 0;
+    width: 50px;
     height: fit-content;
+    flex-wrap: wrap;
     z-index: 10;
     display: flex;
     justify-content: center;
