@@ -7,6 +7,7 @@ const container = document.querySelector('main');
 const originalUrls = new Map();
 const errorElement = document.querySelector('#loader-text');
 const errorImage = document.querySelector('#loader-img');
+const card = document.querySelector('#card');
 
 // State variables
 let lastUrl = "";
@@ -17,6 +18,24 @@ let teacherMode = false;
 // Utility functions
 function changeOpacity(element, opacity) {
     element.style.opacity = opacity;
+}
+
+function changeDisplay(element, display) {
+    element.style.display = display;
+}
+
+
+function displayCard(message) {
+    card.style.display = "flex"
+    card.textContent = message;
+    changeOpacity(card, 100);
+
+    setTimeout(() => {
+        changeOpacity(card, 0)
+        setTimeout(() => {
+            card.style.display = 'none'
+        }, 500)
+    }, 2000)
 }
 
 function displayError(message) {
@@ -91,6 +110,10 @@ function toggleLinks(isTeacherMode) {
           if (!trimmedUrl.startsWith('sanvals.pythonanywhere.com')) {
             link.setAttribute('href', BASE_IP + '/set_url/' + encodeURIComponent(trimmedUrl));
           }
+
+          // Add event listener for teacher mode behaviour
+          link.addEventListener('click', teacherClick);
+
           link.classList.add('active-link');
         } else {
           // Restore the original URL
@@ -103,6 +126,25 @@ function toggleLinks(isTeacherMode) {
       }
     });
     teacherMode = !teacherMode;
+}
+
+function teacherClick(event) {
+    event.preventDefault();
+    const link = event.currentTarget;
+    const url = link.getAttribute('href');
+
+    fetch(url)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        displayCard(`Page sent!`);
+    })
+    .catch(error => {
+        console.error('Error sending page:', error);
+        displayCard('Error sending page')
+    });
+
 }
 
 // Event listener for key presses
