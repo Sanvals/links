@@ -3,6 +3,7 @@
     --button-color: rgb(36, 47, 112);
     --button-shadow: rgb(21, 32, 83);
     --text-shadow: none;
+    --button-text-color: #cecece;
     --background-color: linear-gradient(rgb(12, 14, 39), rgba(18, 31, 66, 0.83)) 0% 0% / auto fixed, url(https://my.logiscool.com/static/media/space-bg.af3c9b72.jpg) 0% 0% / 1270px;
     background: var(--background-color);
     height: 100vh;
@@ -111,6 +112,7 @@ article {
         height: 20px;
         position: relative;
         text-shadow: var(--text-shadow);
+        color: var(--button-text-color);
 
         &:hover {
             background-color: var(--button-shadow);

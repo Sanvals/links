@@ -105,7 +105,7 @@ function toggleLinks(isTeacherMode) {
     teacherMode = !teacherMode;
 }
 
-// Event listener for key presses)
+// Event listener for key presses
 document.addEventListener('keydown', (event) => {
     const key = event.key.toLowerCase();
     
