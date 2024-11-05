@@ -115,6 +115,13 @@ document.addEventListener('DOMContentLoaded', () => {
         errorImage.style.opacity = 0;
     }
 
+    const cachedData = localStorage.getItem('cachedLinks');
+    if (cachedData) {
+        setTimeout(displayLinks(JSON.parse(cachedData)), 500)
+    } else {
+        loader.style.opacity = 100
+    }
+
     // Fetch the data from notionserver
     fetch('https://notionserver.vercel.app')
         .then(response => {
@@ -130,11 +137,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayError('Links are empty');
                 return;
             }
+
             loader.style.opacity = 0;
-            setTimeout(() => {
-                displayLinks(data)
-                container.style.opacity = 100;
-            }, 500)
+            // Compare cached data and server data
+            if (JSON.stringify(data) !== cachedData) {
+                localStorage.setItem('cachedLinks', JSON.stringify(data));
+                setTimeout(displayLinks(data), 500)
+            }
         })
         .catch(error => {
             console.error('Error fetching data:', error)
@@ -142,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     
         function displayLinks(data) {
+            container.innerHTML = '';
             const fragment = document.createDocumentFragment(); // Create a document fragment for better performance
         
             // Iterate over each category in the data
@@ -181,5 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         
             container.appendChild(fragment); // Append all elements at once for efficiency
+            container.style.opacity = 100;
         }
 });

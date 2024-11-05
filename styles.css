@@ -129,6 +129,10 @@ article {
     }
 }
 
+#loader {
+    opacity: 0;
+}
+
 #loader, #loader-text, #loader-img {
     transition: opacity 0.5s;
 }

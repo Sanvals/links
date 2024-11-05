@@ -1,6 +1,7 @@
-// Get the page styles container
+// Get the DOM elements
+const styleImages = document.querySelectorAll('.styleImage');
 const pageStyleContainer = document.getElementById('pageStyle');
-const footerImg = document.getElementById('footerImg');
+
 let currentMood = 1;
 
 // Define mood styles
@@ -47,6 +48,8 @@ const moods = {
     }
 };
 
+const footerImg = document.getElementById('footerImg');
+
 // Function to change the mood
 function changeMood(mood) {
     const target = moods[mood]
@@ -57,29 +60,33 @@ function changeMood(mood) {
     document.documentElement.style.setProperty('--background-color', target.backColor);
     document.documentElement.style.setProperty('--button-shadow', target.buttonShadow);
     document.documentElement.style.setProperty('--text-shadow', target.textShadow);
+
+    // Save current mood to local storage
+    localStorage.setItem('currentMood', mood);
 }
 
-// Add event listeners to the mood images
-const styleImages = document.querySelectorAll('.styleImage');
 
-styleImages.forEach((img, index) => {            
-    if (currentMood === index + 1) {
-        img.style.display = 'none';
-    } else {
-        img.style.display = 'block';
-    }
-})
+function shuffleImages() {
+    styleImages.forEach((img, index) => {   
+        currentMood === index + 1 ? img.style.display = 'none' : img.style.display = 'block';         
+    })
+}
 
 styleImages.forEach((img, index) => {
     img.addEventListener('click', () => {
         currentMood = index + 1
         changeMood(`mood${index + 1}`);
-        styleImages.forEach((img, index) => {            
-            if (currentMood === index + 1) {
-                img.style.display = 'none';
-            } else {
-                img.style.display = 'block';
-            }
-        })
+        shuffleImages()
     });
+});
+
+window.addEventListener('load', () => {
+    const savedMood = localStorage.getItem('currentMood');
+    if (savedMood) {
+        currentMood = parseInt(savedMood.replace('mood', '')); // Extract mood number from 'moodX'
+        changeMood(savedMood); // Apply the saved mood
+    }
+    
+    // Show/hide mood icons based on the current mood
+    shuffleImages()
 });
