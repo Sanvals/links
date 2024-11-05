@@ -1,23 +1,43 @@
-// Define the base URL for the teacher's page
+// Constants
+const BASE_IP = "https://sanvals.pythonanywhere.com";
 const CONNECTBUTTON = document.getElementById('connect-button');
+const FETCHDATA = "https://notionserver.vercel.app"
 const loader = document.querySelector('#loader');
 const container = document.querySelector('main');
+const originalUrls = new Map();
 
-// Define the conditions to store the URL
-const BASE_IP = "https://sanvals.pythonanywhere.com";
+// State variables
 let lastUrl = "";
 let intervalId = null
 let connected = false
 let teacherMode = false;
-const originalUrls = new Map();
+
+// Utility functions
+function changeOpacity(element, opacity) {
+    element.style.opacity = opacity;
+}
+
+function displayError(message) {
+    const errorElement = document.querySelector('#loader-text');
+    const errorImage = document.querySelector('#loader-img');
+    errorElement.textContent = message;
+    errorElement.style.fontWeight = 'bold'; // Optional: make it stand out
+    errorElement.style.margin = '10px 0'; // Optional: add some margin
+    errorImage.style.opacity = 0;
+}
+
+const updateLink = (link, newUrl) => {
+    link.setAttribute('href', newUrl);
+    link.classList.add('active-link');
+    originalUrls.set(link, newUrl);
+};
+
 
 // Function to change all links to the "teacher page" URLs
 function setTeacherPage() {
-    // Get all anchor (<a>) tags except those inside #short-links
     const links = document.querySelectorAll('a:not(#short-links a)');
     links.forEach(link => {
         const originalUrl = link.getAttribute('href');
-        // Check if the original URL is valid before updating
         if (originalUrl) {
             // Trim 'http://' or 'https://' from the original URL
             const trimmedUrl = originalUrl.replace(/^https?:\/\//, '');
@@ -103,27 +123,20 @@ function startCheckingForUrls(serverIP) {
 
 // Fetch links from JSON file
 document.addEventListener('DOMContentLoaded', () => {
-    // Catch the two relevant elements on the page
-    container.style.opacity = 0;
-
-    function displayError(message) {
-        const errorElement = document.querySelector('#loader-text');
-        const errorImage = document.querySelector('#loader-img');
-        errorElement.textContent = message;
-        errorElement.style.fontWeight = 'bold'; // Optional: make it stand out
-        errorElement.style.margin = '10px 0'; // Optional: add some margin
-        errorImage.style.opacity = 0;
-    }
+    changeOpacity(container, 0)
 
     const cachedData = localStorage.getItem('cachedLinks');
     if (cachedData) {
-        setTimeout(displayLinks(JSON.parse(cachedData)), 500)
+        setTimeout(() => {
+            displayLinks(JSON.parse(cachedData))
+            changeOpacity(container, 100)
+        }, 500)
     } else {
-        loader.style.opacity = 100
+        changeOpacity(loader, 100)
     }
 
     // Fetch the data from notionserver
-    fetch('https://notionserver.vercel.app')
+    fetch(FETCHDATA)
         .then(response => {
             if (!response.ok) {
                 displayError('Network error');
@@ -142,7 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Compare cached data and server data
             if (JSON.stringify(data) !== cachedData) {
                 localStorage.setItem('cachedLinks', JSON.stringify(data));
-                setTimeout(displayLinks(data), 500)
+                setTimeout(() => {
+                    displayLinks(data)
+                    changeOpacity(container, 100)
+                }, 500)
             }
         })
         .catch(error => {
@@ -191,6 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         
             container.appendChild(fragment); // Append all elements at once for efficiency
-            container.style.opacity = 100;
+           
         }
 });
