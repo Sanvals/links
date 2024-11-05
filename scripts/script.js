@@ -8,6 +8,7 @@ const originalUrls = new Map();
 const errorElement = document.querySelector('#loader-text');
 const errorImage = document.querySelector('#loader-img');
 const card = document.querySelector('#card');
+const refreshButton = document.getElementById('refresh-button');
 
 // State variables
 let lastUrl = "";
@@ -112,7 +113,7 @@ function toggleLinks(isTeacherMode) {
           }
 
           // Add event listener for teacher mode behaviour
-          link.addEventListener('click', teacherClick);
+          link.addEventListener('click', (event) => teacherClick(event, 'Link sent!'));
 
           link.classList.add('active-link');
         } else {
@@ -122,13 +123,16 @@ function toggleLinks(isTeacherMode) {
             originalUrls.delete(link);
           }
           link.classList.remove('active-link');
+          
+          refreshButton.style.display = 'none';
         }
       }
     });
     teacherMode = !teacherMode;
+    teacherMode ? refreshButton.style.display = 'block' : refreshButton.style.display = 'none';
 }
 
-function teacherClick(event) {
+function teacherClick(event, message) {
     event.preventDefault();
     const link = event.currentTarget;
     const url = link.getAttribute('href');
@@ -138,7 +142,7 @@ function teacherClick(event) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        displayCard(`Page sent!`);
+        displayCard(message);
     })
     .catch(error => {
         console.error('Error sending page:', error);
@@ -149,15 +153,17 @@ function teacherClick(event) {
 
 // Event listener for key presses
 document.addEventListener('keydown', (event) => {
-    const key = event.key.toLowerCase();
-    
-    if (key === 'l') toggleLinks(!teacherMode);
-    if (key === 'd' && teacherMode) window.open(`${BASE_IP}/empty`, '_blank');
+    if (event.key.toLowerCase() === 'l') toggleLinks(!teacherMode);
 });
 
 // Fetch links from JSON file
 document.addEventListener('DOMContentLoaded', () => {
     changeOpacity(container, 0)
+    changeOpacity(loader, 0)
+    changeDisplay(card, 'none')
+    changeDisplay(refreshButton, 'none');
+
+    refreshButton.addEventListener('click', (event, message) => teacherClick(event, "Link refreshed!"))
 
     const cachedData = localStorage.getItem('cachedLinks');
     if (cachedData) {
