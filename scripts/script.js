@@ -102,7 +102,8 @@ function toggleLinks(isTeacherMode) {
       const originalUrl = link.getAttribute('href');
       if (originalUrl) {
         const trimmedUrl = originalUrl.replace(/^https?:\/\//, '');
-  
+
+        // Activate the teacher mode
         if (isTeacherMode) {
           // Store the original URL
           originalUrls.set(link, originalUrl);
@@ -113,9 +114,13 @@ function toggleLinks(isTeacherMode) {
           }
 
           // Add event listener for teacher mode behaviour
-          link.addEventListener('click', (event) => teacherClick(event, 'Link sent!'));
+          const handler = teacherHandler('Link sent!');
+          link.addEventListener('click', handler, false);
+          link._handler = handler;
 
           link.classList.add('active-link');
+        
+        // Return back to the normal mode
         } else {
           // Restore the original URL
           if (originalUrls.has(link)) {
@@ -123,13 +128,19 @@ function toggleLinks(isTeacherMode) {
             originalUrls.delete(link);
           }
           link.classList.remove('active-link');
-          
-          refreshButton.style.display = 'none';
+
+          link.removeEventListener('click', link._handler, false);
         }
       }
     });
     teacherMode = !teacherMode;
-    teacherMode ? refreshButton.style.display = 'block' : refreshButton.style.display = 'none';
+    changeDisplay(refreshButton, 'teacherMode' ? 'block' : 'none')
+}
+
+function teacherHandler(message) {
+    return function(event) {
+        teacherClick(event, message)
+    };
 }
 
 function teacherClick(event, message) {
@@ -143,6 +154,7 @@ function teacherClick(event, message) {
             throw new Error('Network response was not ok');
         }
         displayCard(message);
+        console.log('Set page: ' + url)
     })
     .catch(error => {
         console.error('Error sending page:', error);
