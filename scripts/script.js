@@ -132,7 +132,7 @@ function toggleLinks(isTeacherMode) {
       }
     });
     teacherMode = !teacherMode;
-    changeDisplay(refreshButton, 'teacherMode' ? 'block' : 'none')
+    changeDisplay(refreshButton, teacherMode ? 'block' : 'none')
 }
 
 function teacherHandler(message) {
