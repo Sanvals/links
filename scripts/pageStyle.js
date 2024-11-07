@@ -1,7 +1,7 @@
 // Get the DOM elements
 const pageStyleContainer = document.getElementById('pageStyle');
 const footerImg = document.getElementById('footerImg');
-const savedMood = localStorage.getItem('currentMood');
+const savedMood = localStorage.getItem('currentMood') || 'mood1';
 
 // Define style images
 const images = [
@@ -73,50 +73,51 @@ const moods = {
 
 // Function to create and add images to the DOM
 function loadStyleImages() {
+    if (!pageStyleContainer) return;
     images.forEach((src, index) => {
         const imgElement = document.createElement('img');
         imgElement.src = src;
         imgElement.alt = "Style option " + (index + 1);
         imgElement.classList.add('styleImage');
         imgElement.dataset.mood = 'mood' + (index + 1);
+        imgElement.loading = 'lazy';
+        imgElement.setAttribute('aria-label', 'Style option ' + (index + 1));
         pageStyleContainer.appendChild(imgElement);
     });
 
     // Re-select the images after they are added to the DOM
-    const styleImages = document.querySelectorAll('.styleImage');
-
-    // Initialize event listeners
-    styleImages.forEach(img => {
-        img.addEventListener('click', () => {
-            changeMood(img.dataset.mood);
-        });
+    pageStyleContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('styleImage')) {
+            changeMood(e.target.dataset.mood);
+        }
     });
 }
 
 // Function to change the mood
 function changeMood(mood) {
     const target = moods[mood]
-    footerImg.src = target.footerImg;
+    if (!target) return;
+    footerImg.src = target.footerImg
 
     // Update CSS variables
-    document.documentElement.style.setProperty('--main-color', target.mainColor);
-    document.documentElement.style.setProperty('--button-color', target.buttonColor);
-    document.documentElement.style.setProperty('--background-color', target.backColor);
-    document.documentElement.style.setProperty('--button-shadow', target.buttonShadow);
-    document.documentElement.style.setProperty('--text-shadow', target.textShadow);
-    document.documentElement.style.setProperty('--button-text-color', target.buttonTextColor);
+    const set = (name, value) => document.documentElement.style.setProperty(name, value);
+    set('--main-color', target.mainColor);
+    set('--button-color', target.buttonColor);
+    set('--background-color', target.backColor);
+    set('--button-shadow', target.buttonShadow);
+    set('--text-shadow', target.textShadow);
+    set('--button-text-color', target.buttonTextColor);
 
     // Save current mood to local storage
-    localStorage.setItem('currentMood', mood);
+    if(localStorage.getItem('currentMood') !== mood) localStorage.setItem('currentMood', mood);
 
     // Update visibility of style images
-    const styleImages = document.querySelectorAll('.styleImage');
-    styleImages.forEach(img => {
+    document.querySelectorAll('.styleImage').forEach(img => {
         img.style.display = img.dataset.mood === mood ? 'none' : 'block';
     });
 }
 
 window.addEventListener('load', () => {
-    loadStyleImages(); // Load the images when the page loads
-    changeMood(savedMood ? savedMood : 'mood1');
+    loadStyleImages();
+    changeMood(savedMood);
 });
