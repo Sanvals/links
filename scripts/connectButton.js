@@ -1,3 +1,6 @@
+const CONNECTBUTTON = document.getElementById('connect-button');
+let connected = false
+
 function connectToServer() {
     // Modify the button's background
     if (connected) {

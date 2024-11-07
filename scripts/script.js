@@ -1,7 +1,6 @@
 // Constants
 const BASE_IP = "https://sanvals.pythonanywhere.com";
-const CONNECTBUTTON = document.getElementById('connect-button');
-const FETCHDATA = "https://notionserver.vercel.app"
+const FETCHDATA = "https://notionserver.vercel.app";
 const loader = document.querySelector('#loader');
 const container = document.querySelector('main');
 const originalUrls = new Map();
@@ -13,7 +12,6 @@ const refreshButton = document.getElementById('refresh-button');
 // State variables
 let lastUrl = "";
 let intervalId = null
-let connected = false
 let teacherMode = false;
 
 // Utility functions

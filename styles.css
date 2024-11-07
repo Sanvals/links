@@ -79,7 +79,7 @@ header {
         }
     }
     .connected {
-        background-color: green;
+        background-color: var(--button-color);
         color: white;
     }
 }

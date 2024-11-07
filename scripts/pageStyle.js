@@ -1,8 +1,17 @@
 // Get the DOM elements
-const styleImages = document.querySelectorAll('.styleImage');
 const pageStyleContainer = document.getElementById('pageStyle');
+const footerImg = document.getElementById('footerImg');
+const savedMood = localStorage.getItem('currentMood');
 
-let currentMood = 1;
+// Define style images
+const images = [
+    'https://cdn-icons-png.flaticon.com/64/5551/5551395.png', // Violet world
+    'https://cdn-icons-png.flaticon.com/64/685/685842.png', // Halloween
+    'https://cdn-icons-png.flaticon.com/64/616/616541.png', // Forest
+    'https://cdn-icons-png.flaticon.com/64/2331/2331397.png', // Easter
+    'https://cdn-icons-png.flaticon.com/64/7645/7645197.png', // Night
+    'https://cdn-icons-png.flaticon.com/64/338/338337.png' // Simple blue
+];
 
 // Define mood styles
 const moods = {
@@ -62,13 +71,34 @@ const moods = {
     }
 };
 
-const footerImg = document.getElementById('footerImg');
+// Function to create and add images to the DOM
+function loadStyleImages() {
+    images.forEach((src, index) => {
+        const imgElement = document.createElement('img');
+        imgElement.src = src;
+        imgElement.alt = "Style option " + (index + 1);
+        imgElement.classList.add('styleImage');
+        imgElement.dataset.mood = 'mood' + (index + 1);
+        pageStyleContainer.appendChild(imgElement);
+    });
+
+    // Re-select the images after they are added to the DOM
+    const styleImages = document.querySelectorAll('.styleImage');
+
+    // Initialize event listeners
+    styleImages.forEach(img => {
+        img.addEventListener('click', () => {
+            changeMood(img.dataset.mood);
+        });
+    });
+}
 
 // Function to change the mood
 function changeMood(mood) {
     const target = moods[mood]
-
     footerImg.src = target.footerImg;
+
+    // Update CSS variables
     document.documentElement.style.setProperty('--main-color', target.mainColor);
     document.documentElement.style.setProperty('--button-color', target.buttonColor);
     document.documentElement.style.setProperty('--background-color', target.backColor);
@@ -78,30 +108,15 @@ function changeMood(mood) {
 
     // Save current mood to local storage
     localStorage.setItem('currentMood', mood);
-}
 
-
-function shuffleImages() {
-    styleImages.forEach((img, index) => {   
-        currentMood === index + 1 ? img.style.display = 'none' : img.style.display = 'block';         
-    })
-}
-
-styleImages.forEach((img, index) => {
-    img.addEventListener('click', () => {
-        currentMood = index + 1
-        changeMood(`mood${index + 1}`);
-        shuffleImages()
+    // Update visibility of style images
+    const styleImages = document.querySelectorAll('.styleImage');
+    styleImages.forEach(img => {
+        img.style.display = img.dataset.mood === mood ? 'none' : 'block';
     });
-});
+}
 
 window.addEventListener('load', () => {
-    const savedMood = localStorage.getItem('currentMood');
-    if (savedMood) {
-        currentMood = parseInt(savedMood.replace('mood', '')); // Extract mood number from 'moodX'
-        changeMood(savedMood); // Apply the saved mood
-    }
-    
-    // Show/hide mood icons based on the current mood
-    shuffleImages()
+    loadStyleImages(); // Load the images when the page loads
+    changeMood(savedMood ? savedMood : 'mood1');
 });
