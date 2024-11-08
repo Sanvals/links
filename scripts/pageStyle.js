@@ -9,8 +9,6 @@ const images = [
     'https://cdn-icons-png.flaticon.com/64/685/685842.png', // Halloween
     'https://cdn-icons-png.flaticon.com/64/616/616541.png', // Forest
     'https://cdn-icons-png.flaticon.com/64/2331/2331397.png', // Easter
-    'https://cdn-icons-png.flaticon.com/64/7645/7645197.png', // Night
-    'https://cdn-icons-png.flaticon.com/64/338/338337.png' // Simple blue
 ];
 
 // Define mood styles
@@ -50,24 +48,6 @@ const moods = {
         buttonShadow: 'rgb(17, 53, 38)',
         backColor: 'linear-gradient(rgb(29, 63, 110), rgb(31, 34, 43)) fixed',
         textShadow: 'rgba(53, 251, 169, 0.4) 0px 0px 6px'
-    },
-    mood5: {
-        footerImg: '',
-        mainColor: 'rgb(132, 233, 40)',
-        buttonTextColor: 'rgb(132, 233, 40)',
-        buttonColor: 'rgb(0, 0, 0, 0)',
-        buttonShadow: 'rgb(17, 53, 38)',
-        backColor: 'rgb(20, 24, 31)',
-        textShadow: 'rgba(53, 251, 169, 0.4) 0px 0px 6px'
-    },
-    mood6: {
-        footerImg: '',
-        mainColor: '#404040',
-        buttonTextColor: 'rgb(255, 255, 255)',
-        buttonColor: 'rgb(36, 48, 112)',
-        buttonShadow: 'rgb(6 18 81)',
-        backColor: '#f5f5fb',
-        textShadow: 'rgba(165, 183, 125, 0.87) 0px 0px 5px'
     }
 };
 
@@ -92,6 +72,7 @@ function loadStyleImages() {
         }
     });
 }
+
 
 // Function to change the mood
 function changeMood(mood) {
