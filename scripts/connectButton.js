@@ -2,17 +2,15 @@ const CONNECTBUTTON = document.getElementById('connect-button');
 let connected = false
 
 function connectToServer() {
-    // Modify the button's background
-    if (connected) {
-        // Remove 'connected' class from button
-        CONNECTBUTTON.classList.remove('connected');
-        connected = false;
+    connected = !connected
+    CONNECTBUTTON.classList.toggle('connected', connected)
+    CONNECTBUTTON.innerHTML = connected ? '🛑' : '🔗'
+
+    if(connected) {
+        startCheckingForUrls(BASE_IP)
     } else {
-        // Add 'connected' class to button
-        CONNECTBUTTON.classList.add('connected');
-        connected = true
-        // Directly start checking for URLs with the base IP
-        startCheckingForUrls(BASE_IP);
+        clearInterval(intervalId)
+        intervalId = null;
     }
 }
 
