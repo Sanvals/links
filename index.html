@@ -1,75 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>logiscool links</title>
-  <meta name="description" content="Quick access to Logiscool links and resources" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>logiscool links</title>
+    <meta
+      name="description"
+      content="Quick access to Logiscool links and resources"
+    />
 
-  <!-- Fonts and Icon -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="icon" href="https://api.prod.scoolcode.com/profile-pictures/6048bb37d82f87ae61ae2b12/data">
-  
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <!-- Fonts and Icon -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="https://api.prod.scoolcode.com/profile-pictures/6048bb37d82f87ae61ae2b12/data"
+    />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <!-- Page Syle icons -->
-    <div id="pageStyle" aria-label="Style options">
-    </div>
+    <div id="pageStyle" aria-label="Style options"></div>
 
     <!-- Main content Section -->
     <article>
-        <header>
-            <!-- User profile title -->
-            <h3>
-                <img id="avatar-picture" 
-                    src="https://api.prod.scoolcode.com/profile-pictures/6048bb37d82f87ae61ae2b12/data"
-                    alt="A hamster with a hat">
-                <span>logiscool links</span>
-            </h3>
+      <header>
+        <!-- User profile title -->
+        <h3>
+          <img
+            id="avatar-picture"
+            src="https://api.prod.scoolcode.com/profile-pictures/6048bb37d82f87ae61ae2b12/data"
+            alt="A hamster with a hat"
+          />
+          <span>logiscool links</span>
+        </h3>
 
-            <!-- User profile quick links -->
-            <div id="short-links">
-                <a href="https://my.logiscool.com/" target="_blank" aria-label="My Logiscool">My Logiscool</a>
-                <a href="https://trainer.scoolcode.com/dashboard" target="_blank" aria-label="Dashboard">Dashboard</a>
-                <a href="https://sanvals.pythonanywhere.com/empty" id="refresh-button" aria-label="Refresh">♻️</a>
-                <button onclick="connectToServer()" id="connect-button" aria-label="Connect">🔗</button>
-            </div>
-        </header>
-
-        <!-- Container for dynamic links -->
-        <main>
-            <div id="dynamic-links-container"></div>
-        </main>
-        
-        <!-- Loader animation -->
-        <div id="loader" style="opacity: 0" aria-hidden="true" role="status">
-            <div id="loader-img">
-                <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script> 
-                <dotlottie-player 
-                    src="https://lottie.host/5325fce6-c067-4ff6-9457-d4a8d58487bc/nFdfLNubAK.json" 
-                    background="transparent" 
-                    speed="0.5" 
-                    style="width: 150px; height: 150px; width: auto; margin-top: 0px;" 
-                    loop autoplay>
-                </dotlottie-player>
-            </div>
-            <div id="loader-text">Loading links...</div>
+        <!-- User profile quick links -->
+        <div id="short-links">
+          <a
+            href="https://my.logiscool.com/"
+            target="_blank"
+            aria-label="My Logiscool"
+            >My Logiscool</a
+          >
+          <a
+            href="https://trainer.scoolcode.com/dashboard"
+            target="_blank"
+            aria-label="Dashboard"
+            >Dashboard</a
+          >
+          <a
+            href="https://sanvals.pythonanywhere.com/empty"
+            id="refresh-button"
+            aria-label="Refresh"
+            >♻️</a
+          >
+          <button
+            onclick="connectToServer()"
+            id="connect-button"
+            aria-label="Connect"
+          >
+            🔗
+          </button>
         </div>
+      </header>
+
+      <!-- Container for dynamic links -->
+      <main>
+        <div id="dynamic-links-container"></div>
+      </main>
+
+      <!-- Loader animation -->
+      <div id="loader" style="opacity: 0" aria-hidden="true" role="status">
+        <div id="loader-img">
+          <script
+            src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+            type="module"
+          ></script>
+          <dotlottie-player
+            src="https://lottie.host/5325fce6-c067-4ff6-9457-d4a8d58487bc/nFdfLNubAK.json"
+            background="transparent"
+            speed="0.5"
+            style="width: 150px; height: 150px; width: auto; margin-top: 0px"
+            loop
+            autoplay
+          >
+          </dotlottie-player>
+        </div>
+        <div id="loader-text">Loading links...</div>
+      </div>
     </article>
-    
+
     <!-- Card for displaying link information -->
     <div id="card" role="complementary"></div>
 
     <!-- Footer section with background image -->
     <div id="footer-img">
-        <img src="https://my.logiscool.com/static/media/space-footer.1b18286a.png"id="footerImg">
+      <img
+        src="https://my.logiscool.com/static/media/space-footer.1b18286a.png"
+        id="footerImg"
+      />
     </div>
 
     <!-- JavaScript files -->
     <script src="scripts/pageStyle.js" defer></script>
     <script src="scripts/connectButton.js" defer></script>
     <script src="scripts/script.js" defer></script>
-</body>
+  </body>
 </html>
