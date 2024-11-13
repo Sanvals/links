@@ -30,6 +30,9 @@
     <article>
       <header>
         <!-- User profile title -->
+        <div id="teacherBadge">
+          Teacher mode 🎓
+        </div>
         <h3>
           <img
             id="avatar-picture"
@@ -50,14 +53,9 @@
           <a
             href="https://trainer.scoolcode.com/dashboard"
             target="_blank"
+            id="dashboard-button"
             aria-label="Dashboard"
             >Dashboard</a
-          >
-          <a
-            href="https://sanvals.pythonanywhere.com/empty"
-            id="refresh-button"
-            aria-label="Refresh"
-            >♻️</a
           >
           <button
             onclick="connectToServer()"
@@ -66,6 +64,12 @@
           >
             🔗
           </button>
+          <a
+            href="https://sanvals.pythonanywhere.com/empty"
+            id="refresh-button"
+            aria-label="Refresh"
+            >♻️</a
+          >
         </div>
       </header>
 

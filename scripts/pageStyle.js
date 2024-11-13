@@ -5,10 +5,10 @@ const savedMood = localStorage.getItem("currentMood") || "mood1";
 
 // Define style images
 const images = [
-  "https://cdn-icons-png.flaticon.com/64/5551/5551395.png", // Violet world
-  "https://cdn-icons-png.flaticon.com/64/685/685842.png", // Halloween
-  "https://cdn-icons-png.flaticon.com/64/616/616541.png", // Forest
-  "https://cdn-icons-png.flaticon.com/64/2331/2331397.png", // Easter
+  "https://cdn-icons-png.flaticon.com/32/5551/5551395.png", // Violet world
+  "https://cdn-icons-png.flaticon.com/32/685/685842.png", // Halloween
+  "https://cdn-icons-png.flaticon.com/32/616/616541.png", // Forest
+  "https://cdn-icons-png.flaticon.com/32/2331/2331397.png", // Easter
 ];
 
 // Define mood styles

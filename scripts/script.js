@@ -3,11 +3,13 @@ const BASE_IP = "https://sanvals.pythonanywhere.com";
 const FETCHDATA = "https://notionserver.vercel.app";
 const loader = document.querySelector("#loader");
 const container = document.querySelector("main");
+const teacherBadge = document.getElementById("teacherBadge")
 const originalUrls = new Map();
 const errorElement = document.querySelector("#loader-text");
 const errorImage = document.querySelector("#loader-img");
 const card = document.querySelector("#card");
 const refreshButton = document.getElementById("refresh-button");
+const dashboardButton = document.getElementById("dashboard-button");
 
 // State variables
 let lastUrl = "";
@@ -133,6 +135,8 @@ function toggleLinks(isTeacherMode) {
   });
   teacherMode = !teacherMode;
   changeDisplay(refreshButton, teacherMode ? "block" : "none");
+  changeDisplay(dashboardButton, teacherMode ? "block" : "none");
+  changeDisplay(teacherBadge, teacherMode ? "block" : "none");
 }
 
 function teacherHandler(message) {
@@ -187,11 +191,6 @@ document.addEventListener("keydown", (event) => {
 
 // Fetch links from JSON file
 document.addEventListener("DOMContentLoaded", () => {
-  changeOpacity(container, 0);
-  changeOpacity(loader, 0);
-  changeDisplay(card, "none");
-  changeDisplay(refreshButton, "none");
-
   refreshButton.addEventListener("click", (event, message) =>
     teacherClick(event, "Link refreshed!")
   );
