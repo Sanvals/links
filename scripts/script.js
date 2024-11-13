@@ -21,10 +21,6 @@ function changeOpacity(element, opacity) {
   element.style.opacity = opacity;
 }
 
-function changeDisplay(element, display) {
-  element.style.display = display;
-}
-
 function displayCard(message) {
   card.style.display = "flex";
   card.textContent = message;
@@ -134,9 +130,9 @@ function toggleLinks(isTeacherMode) {
     }
   });
   teacherMode = !teacherMode;
-  changeDisplay(refreshButton, teacherMode ? "block" : "none");
-  changeDisplay(dashboardButton, teacherMode ? "block" : "none");
-  changeDisplay(teacherBadge, teacherMode ? "block" : "none");
+  refreshButton.classList.toggle("hid", !teacherMode);
+  dashboardButton.classList.toggle("hid", !teacherMode);
+  teacherBadge.classList.toggle("hid", !teacherMode);
 }
 
 function teacherHandler(message) {
