@@ -1,7 +1,9 @@
 // Get the DOM elements
 const pageStyleContainer = document.getElementById("pageStyle");
 const footerImg = document.getElementById("footerImg");
+const showStyles = document.getElementById("showStyles");
 const savedMood = localStorage.getItem("currentMood") || "mood1";
+let hideModes = true;
 
 // Define style images
 const images = [
@@ -102,6 +104,11 @@ function changeMood(mood) {
   document.querySelectorAll(".styleImage").forEach((img) => {
     img.style.display = img.dataset.mood === mood ? "none" : "block";
   });
+}
+
+function clickStyles() {
+  hideModes = !hideModes;
+  pageStyleContainer.style.display = hideModes ? "none" : "flex";
 }
 
 window.addEventListener("load", () => {
