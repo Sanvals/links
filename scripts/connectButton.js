@@ -4,7 +4,7 @@ let connected = false;
 function connectToServer() {
   connected = !connected;
   CONNECTBUTTON.classList.toggle("connected", connected);
-  CONNECTBUTTON.innerHTML = connected ? "🛑" : "🔗";
+  CONNECTBUTTON.textContent = connected ? "🛑 Disconnect" : "🔗 Connect";
 
   if (connected) {
     startCheckingForUrls(BASE_IP);

@@ -42,13 +42,13 @@ header {
       border-radius: 10px;
     }
   }
-
   #short-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin: auto;
   }
 
   a {
@@ -94,6 +94,7 @@ article {
   display: flex;
   flex-direction: column;
   text-align: center;
+  cursor: default;
 
   details a {
     font-size: 1rem;
@@ -129,6 +130,10 @@ article {
   }
   .active-link {
     background-color: green;
+  }
+
+  summary {
+    cursor:pointer;
   }
 }
 
@@ -183,6 +188,7 @@ main {
 
   &:hover {
     background-color: var(--button-shadow);
+    cursor:pointer;
   }
 }
 
@@ -217,6 +223,7 @@ main {
   transform: translateX(-50%);
   padding: 3px 7px 3px 7px;
   border-radius: 100px;
+  top: 2%;
 }
 
 .hid {
