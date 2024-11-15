@@ -226,3 +226,8 @@ main {
 .hid {
   display: none;
 }
+
+input {
+  background-color:rgb(12, 14, 39, 0);
+  border: none;
+}
