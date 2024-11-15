@@ -56,24 +56,31 @@
             id="connect-button"
             aria-label="Connect">
             🔗 <span>Connect</span></button>
+          <button
+            onClick="clickStyles()"
+            id="showStyles"
+            aria-label="Style options">
+            🌈 <span>Styles</span></a>
+          </button>
           <a
             href="https://trainer.scoolcode.com/dashboard"
             target="_blank"
             id="dashboard-button"
             class="hid"
             aria-label="Dashboard">
-            🎓 <span>Dashboard</span></a>
+            🎓 <span></span></a>
           <a
             href="https://sanvals.pythonanywhere.com/empty"
+            id="empty-button"
+            class="hid"
+            aria-label="Refresh">
+            🗑️ <span></span></a>
+          <a
+            href="https://notionserver.vercel.app/refreshData"
             id="refresh-button"
             class="hid"
             aria-label="Refresh">
-            ♻️ <span>Refresh</span></a>
-          <button
-            onClick="clickStyles()"
-            id="showStyles"
-            aria-label="Style options">
-          🌈 <span>Styles</span></a>
+            ♻️ <span></span></a>
         </div>
       </header>
 
@@ -82,7 +89,7 @@
         <div id="dynamic-links-container"></div>
       </main>
 
-      <!-- Loader animation -->
+      <!-- Loader -->
       <div id="loader" style="opacity: 0" aria-hidden="true" role="status">
         <div id="loader-img">
           <script
