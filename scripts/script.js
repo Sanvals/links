@@ -1,5 +1,6 @@
 // Constants
 const BASE_IP = "https://sanvals.pythonanywhere.com";
+// const FETCHDATA= "http://localhost:3000";
 const FETCHDATA = "https://notionserver.vercel.app";
 const loader = document.querySelector("#loader");
 const container = document.querySelector("main");
@@ -9,6 +10,7 @@ const errorElement = document.querySelector("#loader-text");
 const errorImage = document.querySelector("#loader-img");
 const card = document.querySelector("#card");
 const refreshButton = document.getElementById("refresh-button");
+const emptyButton = document.getElementById("empty-button");
 const dashboardButton = document.getElementById("dashboard-button");
 
 // State variables
@@ -130,6 +132,7 @@ function toggleLinks(isTeacherMode) {
     }
   });
   teacherMode = !teacherMode;
+  emptyButton.classList.toggle("hid", !teacherMode);
   refreshButton.classList.toggle("hid", !teacherMode);
   dashboardButton.classList.toggle("hid", !teacherMode);
   teacherBadge.classList.toggle("hid", !teacherMode);
@@ -187,8 +190,13 @@ document.addEventListener("keydown", (event) => {
 
 // Fetch links from JSON file
 document.addEventListener("DOMContentLoaded", () => {
-  refreshButton.addEventListener("click", (event, message) =>
-    teacherClick(event, "Link refreshed!")
+
+  refreshButton.addEventListener("click", (event, message) => {
+    teacherClick(event, "Links refreshed!");
+  });
+
+  emptyButton.addEventListener("click", (event, message) =>
+    teacherClick(event, "Link emptied!")
   );
 
   const cachedData = localStorage.getItem("cachedLinks");
