@@ -1,5 +1,11 @@
+// Constant variables
 const CONNECTBUTTON = document.getElementById("connect-button");
+
+// State variables
+let lastUrl = "";
+let intervalId = null;
 let connected = false;
+
 
 function connectToServer() {
   connected = !connected;

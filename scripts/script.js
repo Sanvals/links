@@ -13,31 +13,26 @@ const dashboardButton = document.getElementById("dashboard-button");
 const refreshButton = document.getElementById('refresh-button');
 
 // State variables
-let lastUrl = "";
-let intervalId = null;
 let teacherMode = false;
 
 // Utility functions
-function changeOpacity(element, opacity) {
-  element.style.opacity = opacity;
-}
-
 function displayCard(message) {
-  card.style.display = "flex";
   card.textContent = message;
-  changeOpacity(card, 100);
+  card.style.opacity = "1";
+  card.style.display = "flex";
 
   setTimeout(() => {
-    changeOpacity(card, 0);
-    setTimeout(() => {
+    card.style.opacity = "0";
+    card.addEventListener("transitionend", () => {
       card.style.display = "none";
-    }, 500);
+    }, {once: true})
   }, 2000);
 }
 
-function displayError(message) {
+function displayError(message, error = null) {
   errorElement.textContent = message;
   errorImage.style.opacity = 0;
+  if (error) console.error(error)
 }
 
 const updateLink = (link, newUrl) => {
@@ -132,6 +127,7 @@ function toggleLinks(isTeacherMode) {
   });
   teacherMode = !teacherMode;
   emptyButton.classList.toggle("hid", !teacherMode);
+  refreshButton.classList.toggle("hid", !teacherMode);
   dashboardButton.classList.toggle("hid", !teacherMode);
   teacherBadge.classList.toggle("hid", !teacherMode);
 }
@@ -152,8 +148,11 @@ function teacherClick(event, message) {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      displayCard(message);
+      return response.text()
+    })
+    .then(() => {
       console.log("Set page: " + url);
+      displayCard(message)
     })
     .catch((error) => {
       console.error("Error sending page:", error);
@@ -193,45 +192,46 @@ document.addEventListener("DOMContentLoaded", () => {
     teacherClick(event, "Link emptied!")
   );
 
+  refreshButton.href= BASE_IP + "/refresh";
+  refreshButton.addEventListener("click", (event, message) =>
+    teacherClick(event, "Link refreshed!")
+  );
 
   const cachedData = localStorage.getItem("cachedLinks");
   if (cachedData) {
     setTimeout(() => {
       displayLinks(JSON.parse(cachedData));
-      changeOpacity(container, 100);
+      container.style.opacity = "1";
     }, 500);
   } else {
-    changeOpacity(loader, 100);
+    loader.style.opacity = "1";
   }
 
-  // Fetch the data from notionserver
-fetch(BASE_IP)
-  .then((response) => {
-    if (!response.ok) {
-        displayError("Network error");
+// Fetch the data from pythonanywhere
+  fetch(BASE_IP)
+    .then((response) => {
+      if (!response.ok) {
+        displayError("Network error", response.statusText);
         throw new Error("Network response was not ok");
-    }
-    return response.json();
-  })
-  .then((data) => {
+      }
+      return response.json();
+    })
+    .then((data) => {
       // Process and display the data
-    if (!Object.keys(data).length) {
-      displayError("Links are empty");
-      return;
-    }
+      if (!Object.keys(data).length) {
+        displayError("Links are empty");
+        return;
+      }
 
-    loader.style.opacity = 0;
+      loader.style.opacity = 0;
       // Compare cached data and server data
-    if (JSON.stringify(data) !== cachedData) {
-      localStorage.setItem("cachedLinks", JSON.stringify(data));
-      setTimeout(() => {
-        displayLinks(data);
-        changeOpacity(container, 100);
-      }, 500);
+      if (JSON.stringify(data) !== cachedData) {
+        localStorage.setItem("cachedLinks", JSON.stringify(data));
+        setTimeout(() => {
+          displayLinks(data);
+          container.style.opacity = "1";
+        }, 500);
     }
   })
-  .catch((error) => {
-    console.error("Error fetching data:", error);
-    displayError("No links found");
-  });
+  .catch((error) => displayError("No links found", error));
 });
