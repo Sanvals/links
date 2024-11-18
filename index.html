@@ -61,6 +61,11 @@
             id="showStyles"
             aria-label="Style options">
             🌈 <span>Styles</span></a>
+          <button
+            onClick="showQRCode()"
+            id="showQRCode"
+            aria-label="Style options">
+            📲 <span>QR Code</span></a>
           </button>
           <a
             href="https://trainer.scoolcode.com/dashboard"
@@ -112,8 +117,14 @@
 
     <!-- Card for displaying link information -->
     <div id="card" role="complementary" class="hid"></div>
-    <input type="text">
+    
+    <!-- Card for displaying the QR Code -->
+    <div id="QRCode" role="complementary" class="hid">
+      <img src="static/qrcode.png" alt="QR Code" />
+    </div>
+
     <!-- Footer section with background image -->
+    <input type="text">
     <div id="footer-img">
       <img
         src="https://my.logiscool.com/static/media/space-footer.1b18286a.png"

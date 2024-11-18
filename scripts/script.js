@@ -11,6 +11,14 @@ const card = document.querySelector("#card");
 const emptyButton = document.getElementById("empty-button");
 const dashboardButton = document.getElementById("dashboard-button");
 const refreshButton = document.getElementById('refresh-button');
+const QRCode = document.getElementById('QRCode');
+
+const hiddenObjects = [
+  teacherBadge,
+  emptyButton,
+  dashboardButton,
+  refreshButton
+]
 
 // State variables
 let teacherMode = false;
@@ -40,6 +48,16 @@ const updateLink = (link, newUrl) => {
   link.classList.add("active-link");
   originalUrls.set(link, newUrl);
 };
+
+function toggleObjects (objects) {
+  objects.forEach((object) => {
+    object.classList.toggle("hid", !teacherMode);
+  });
+}
+
+function showQRCode() {
+  QRCode.classList.toggle("hid") 
+}
 
 function displayLinks(data) {
   const openStates = getOpenStates(); // Step 1: Save current open states
@@ -126,10 +144,7 @@ function toggleLinks(isTeacherMode) {
     }
   });
   teacherMode = !teacherMode;
-  emptyButton.classList.toggle("hid", !teacherMode);
-  refreshButton.classList.toggle("hid", !teacherMode);
-  dashboardButton.classList.toggle("hid", !teacherMode);
-  teacherBadge.classList.toggle("hid", !teacherMode);
+  toggleObjects(hiddenObjects);
 }
 
 function teacherHandler(message) {
@@ -195,6 +210,10 @@ document.addEventListener("DOMContentLoaded", () => {
   refreshButton.href= BASE_IP + "/refresh";
   refreshButton.addEventListener("click", (event, message) =>
     teacherClick(event, "Link refreshed!")
+  );
+
+  QRCode.addEventListener("click", (event, message) =>
+    QRCode.classList.toggle("hid")
   );
 
   const cachedData = localStorage.getItem("cachedLinks");
