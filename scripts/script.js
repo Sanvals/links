@@ -1,7 +1,6 @@
 // Constants
+// const BASE_IP = "http://localhost:5000";
 const BASE_IP = "https://sanvals.pythonanywhere.com";
-// const FETCHDATA = "https://notionserver.vercel.app";
-const FETCHDATA = "https://sanvals.pythonanywhere.com";
 const loader = document.querySelector("#loader");
 const container = document.querySelector("main");
 const teacherBadge = document.getElementById("teacherBadge")
@@ -11,6 +10,7 @@ const errorImage = document.querySelector("#loader-img");
 const card = document.querySelector("#card");
 const emptyButton = document.getElementById("empty-button");
 const dashboardButton = document.getElementById("dashboard-button");
+const refreshButton = document.getElementById('refresh-button');
 
 // State variables
 let lastUrl = "";
@@ -188,9 +188,11 @@ document.addEventListener("keydown", (event) => {
 
 // Fetch links from JSON file
 document.addEventListener("DOMContentLoaded", () => {
+  emptyButton.href = BASE_IP + "/empty";
   emptyButton.addEventListener("click", (event, message) =>
     teacherClick(event, "Link emptied!")
   );
+
 
   const cachedData = localStorage.getItem("cachedLinks");
   if (cachedData) {
@@ -203,33 +205,33 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Fetch the data from notionserver
-  fetch(FETCHDATA)
-    .then((response) => {
-      if (!response.ok) {
+fetch(BASE_IP)
+  .then((response) => {
+    if (!response.ok) {
         displayError("Network error");
         throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
+    }
+    return response.json();
+  })
+  .then((data) => {
       // Process and display the data
-      if (!Object.keys(data).length) {
-        displayError("Links are empty");
-        return;
-      }
+    if (!Object.keys(data).length) {
+      displayError("Links are empty");
+      return;
+    }
 
-      loader.style.opacity = 0;
+    loader.style.opacity = 0;
       // Compare cached data and server data
-      if (JSON.stringify(data) !== cachedData) {
-        localStorage.setItem("cachedLinks", JSON.stringify(data));
-        setTimeout(() => {
-          displayLinks(data);
-          changeOpacity(container, 100);
-        }, 500);
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-      displayError("No links found");
-    });
+    if (JSON.stringify(data) !== cachedData) {
+      localStorage.setItem("cachedLinks", JSON.stringify(data));
+      setTimeout(() => {
+        displayLinks(data);
+        changeOpacity(container, 100);
+      }, 500);
+    }
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
+    displayError("No links found");
+  });
 });
