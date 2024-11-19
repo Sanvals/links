@@ -10,7 +10,10 @@ const images = [
   "https://cdn-icons-png.flaticon.com/32/5551/5551395.png", // Violet world
   "https://cdn-icons-png.flaticon.com/32/685/685842.png", // Halloween
   "https://cdn-icons-png.flaticon.com/32/616/616541.png", // Forest
-  "https://cdn-icons-png.flaticon.com/32/2331/2331397.png", // Easter
+  "https://cdn-icons-png.flaticon.com/32/2331/2331397.png",
+  "static/red.png",
+  "static/green.png"
+
 ];
 
 // Define mood styles
@@ -54,6 +57,26 @@ const moods = {
     buttonColor: "rgb(0, 80, 46)",
     buttonShadow: "rgb(17, 53, 38)",
     backColor: "linear-gradient(rgb(29, 63, 110), rgb(31, 34, 43)) fixed",
+    textShadow: "rgba(53, 251, 169, 0.4) 0px 0px 6px",
+  },
+  mood5: {
+    footerImg:
+      "",
+    mainColor: "rgba(0, 0, 0, 1)",
+    buttonTextColor: "rgb(207, 236, 224)",
+    buttonColor: "rgb(165, 0, 80)",
+    buttonShadow: "rgb(165, 0, 80, 0.6)",
+    backColor: "#f5f5fb",
+    textShadow: "rgba(53, 251, 169, 0.4) 0px 0px 6px",
+  },
+  mood6: {
+    footerImg:
+      "",
+    mainColor: "rgba(0, 0, 0, 1)",
+    buttonTextColor: "rgb(207, 236, 224)",
+    buttonColor: "rgb(37, 109, 53)",
+    buttonShadow: "rgb(37, 109, 53, 0.6)",
+    backColor: "#f5f5fb",
     textShadow: "rgba(53, 251, 169, 0.4) 0px 0px 6px",
   },
 };
