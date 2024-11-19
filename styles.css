@@ -178,12 +178,12 @@ main {
 
 .styleImage {
   position: relative;
-  height: 30px;
+  height: 45px;
   width: auto;
   border-radius: 100%;
   padding: 10px;
   background-color: var(--button-color);
-  transition: background-color 0.2s;
+  transition: height, background-color 0.2s;
 
   &:hover {
     background-color: var(--button-shadow);
@@ -193,7 +193,7 @@ main {
 
 @media (max-width: 600px) {
   .styleImage {
-    height: 25px; /* Smaller size for mobile */
+    height: 43px; /* Smaller size for mobile */
     padding: 5px; /* Adjust padding */
   }
 
