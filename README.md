@@ -1,8 +1,8 @@
-## 🔗 Educational Links Page
+# 🔗 Educational Links Page
 
 A customizable and dynamic web application designed to provide easy access to educational resources and websites for students and teachers. It features a special "Teacher Mode" that helps open links on the students laptops, making it easier for teachers to share content with their students.
 
-### 📋 Table of Contents
+# 📋 Table of Contents
 
 - [Features](#features)
 - [Demo](#demo)
@@ -13,19 +13,19 @@ A customizable and dynamic web application designed to provide easy access to ed
 - [Technologies](#technologies)
 
 
-### 🧩 Features
+## 🧩 Features
 
 - **Teacher Mode**: Easy toggle for 'teacher mode'.
 - **Customizable**: Costomization of the page's style via vanilla JS.
 - **Responsive**: View links and resources on different devices.
-- **Safe**: The links are pulled from a Notion database and are validated for security.
-- **Offline Support**: Fully functional offline if links have been perviously stored.
+- **Safe**: For security, links are validated before being set on the server.
+- **Offline Support**: Offline fully functional mode via cached links.
 
-### 🎥 Demo
+## 🎥 Demo
 
 [View Demo](https://sanvals.github.io/links/)
 
-### 🚀 Installation
+## 🚀 Installation
 
 In order to set up the project locally, follow these steps:
 
@@ -50,7 +50,9 @@ cd links
 3. Access the 'Teacher Mode':
 
     - Press the L key to toggle the teacher mode.
-    - Click on any link to send the data to the student's laptops.
+    - Links set the URL on the server, and it's sent to the student's laptops.
+    - 'Empty' button clears the URL from the database.
+    - 'Refresh' button calls Notion server and refresh the links database.
 
 #### Endpoints
 
@@ -68,12 +70,13 @@ The project is configured to use environment variables. Please ensure that the f
 
 ## 🛠️ Technologies
 
-For the server:
+On the server:
 
 - [Flask](https://flask.palletsprojects.com/en/2.2.x/)
 - [Flask-Cors](https://flask-cors.readthedocs.io/en/latest/)
 - [Python](https://www.python.org/)
 - [Notion](https://www.notion.so/)
 
-For the client's side:
+On the client:
+
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)

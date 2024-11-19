@@ -1,5 +1,6 @@
 // Constant variables
 const CONNECTBUTTON = document.getElementById("connect-button");
+const CONNECTEMOJI = document.getElementById("connect-emoji")
 
 // State variables
 let lastUrl = "";
@@ -10,7 +11,7 @@ let connected = false;
 function connectToServer() {
   connected = !connected;
   CONNECTBUTTON.classList.toggle("connected", connected);
-  CONNECTBUTTON.textContent = connected ? "🛑 Disconnect" : "🔗 Connect";
+  CONNECTEMOJI.textContent = connected ? "🛑" : "🔗";
 
   if (connected) {
     startCheckingForUrls(BASE_IP);
