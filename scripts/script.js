@@ -8,16 +8,18 @@ const originalUrls = new Map();
 const errorElement = document.querySelector("#loader-text");
 const errorImage = document.querySelector("#loader-img");
 const card = document.querySelector("#card");
+const QRCode = document.getElementById('QRCode');
 const emptyButton = document.getElementById("empty-button");
 const dashboardButton = document.getElementById("dashboard-button");
 const refreshButton = document.getElementById('refresh-button');
-const QRCode = document.getElementById('QRCode');
+const revertButton = document.getElementById('revert-button');
 
 const hiddenObjects = [
   teacherBadge,
   emptyButton,
   dashboardButton,
-  refreshButton
+  refreshButton,
+  revertButton
 ]
 
 // State variables

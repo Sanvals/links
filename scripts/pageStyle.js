@@ -11,9 +11,8 @@ const images = [
   "https://cdn-icons-png.flaticon.com/32/685/685842.png", // Halloween
   "https://cdn-icons-png.flaticon.com/32/616/616541.png", // Forest
   "https://cdn-icons-png.flaticon.com/32/2331/2331397.png",
-  "static/red.png",
-  "static/green.png"
-
+  "static/styles/red.png",
+  "static/styles/green.png"
 ];
 
 // Define mood styles
