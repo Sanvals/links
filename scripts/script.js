@@ -13,6 +13,7 @@ const emptyButton = document.getElementById("empty-button");
 const dashboardButton = document.getElementById("dashboard-button");
 const refreshButton = document.getElementById('refresh-button');
 const revertButton = document.getElementById('revert-button');
+const teacherButton = document.getElementById('teacher-button');
 
 const hiddenObjects = [
   teacherBadge,
@@ -24,6 +25,7 @@ const hiddenObjects = [
 
 // State variables
 let teacherMode = false;
+let passw = false;
 
 // Utility functions
 function displayCard(message) {
