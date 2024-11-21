@@ -13,7 +13,9 @@ const emptyButton = document.getElementById("empty-button");
 const dashboardButton = document.getElementById("dashboard-button");
 const refreshButton = document.getElementById('refresh-button');
 const revertButton = document.getElementById('revert-button');
-const teacherButton = document.getElementById('teacher-button');
+const avatarPicture = document.getElementById("avatar-picture");
+const teacherCard = document.getElementById("teacher-card");
+const teacherPass = "logilogi"
 
 const hiddenObjects = [
   teacherBadge,
@@ -199,13 +201,13 @@ function restoreOpenStates(openStates) {
   });
 }
 
-// Event listener for key presses
-document.addEventListener("keydown", (event) => {
-  if (event.key.toLowerCase() === "l") toggleLinks(!teacherMode);
-});
-
 // Fetch links from JSON file
 document.addEventListener("DOMContentLoaded", () => {
+  /*
+  document.addEventListener("keydown", (event) => {
+    if (event.key.toLowerCase() === "l") toggleLinks(!teacherMode);
+  });
+  */
   emptyButton.href = BASE_IP + "/empty";
   emptyButton.addEventListener("click", (event, message) =>
     teacherClick(event, "Link emptied!")
@@ -219,6 +221,32 @@ document.addEventListener("DOMContentLoaded", () => {
   QRCode.addEventListener("click", (event, message) =>
     QRCode.classList.toggle("hid")
   );
+
+  avatarPicture.addEventListener("click", (event, message) =>{
+    teacherCard.classList.toggle("hid");
+
+    const input = document.createElement("input");
+    input.type = "password";
+    input.placeholder = "Password";
+    input.classList.add("teacher-input");
+
+    teacherCard.innerHTML = "";
+    teacherCard.appendChild(input)
+    input.focus();
+
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        const password = input.value;
+        if (password === teacherPass) {
+          teacherCard.classList.toggle("hid");
+          toggleLinks(!teacherMode);
+        }}
+    });
+  });
+
+  teacherCard.addEventListener("click", (event, message) => {
+    teacherCard.classList.toggle("hid");
+  });
 
   const cachedData = localStorage.getItem("cachedLinks");
   if (cachedData) {

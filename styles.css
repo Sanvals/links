@@ -210,7 +210,7 @@ input {
 }
 
 /* Messages on top of the screen */
-#QRCode, #card {
+#QRCode, #card, #teacher-card {
   position: fixed;
   top: 0;
   left: 0;
@@ -229,6 +229,19 @@ input {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.teacher-input {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 20px;
+  border-radius: 40px;
+  background-color: var(--button-color);
+  color: var(--button-text-color);
+  width: 160px;
 }
 
 /* Media queries */
