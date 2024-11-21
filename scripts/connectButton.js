@@ -7,7 +7,7 @@ let lastUrl = "";
 let intervalId = null;
 let connected = false;
 
-
+// Helper function
 function connectToServer() {
   connected = !connected;
   CONNECTBUTTON.classList.toggle("connected", connected);

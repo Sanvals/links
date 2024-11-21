@@ -210,7 +210,7 @@ input {
 }
 
 /* Messages on top of the screen */
-#QRCode, #card, #teacher-card {
+.card {
   position: fixed;
   top: 0;
   left: 0;
@@ -222,7 +222,7 @@ input {
   transition: opacity 0.5s;
 }
 
-#QRCode img {
+.card img {
   width: 40%;
   height: auto;
   position: absolute;
@@ -231,7 +231,7 @@ input {
   transform: translate(-50%, -50%);
 }
 
-.teacher-input {
+.card input {
   position: absolute;
   top: 50%;
   left: 50%;

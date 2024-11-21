@@ -8,7 +8,6 @@ const originalUrls = new Map();
 const errorElement = document.querySelector("#loader-text");
 const errorImage = document.querySelector("#loader-img");
 const card = document.querySelector("#card");
-const QRCode = document.getElementById('QRCode');
 const emptyButton = document.getElementById("empty-button");
 const dashboardButton = document.getElementById("dashboard-button");
 const refreshButton = document.getElementById('refresh-button');
@@ -59,10 +58,6 @@ function toggleObjects (objects) {
   objects.forEach((object) => {
     object.classList.toggle("hid", !teacherMode);
   });
-}
-
-function showQRCode() {
-  QRCode.classList.toggle("hid") 
 }
 
 function displayLinks(data) {
@@ -153,6 +148,7 @@ function toggleLinks(isTeacherMode) {
   toggleObjects(hiddenObjects);
 }
 
+
 function teacherHandler(message) {
   return function (event) {
     teacherClick(event, message);
@@ -201,33 +197,42 @@ function restoreOpenStates(openStates) {
   });
 }
 
+function showQRCode() {
+  teacherCard.classList.toggle("hid");
+  
+  const img = document.createElement("img");
+  img.src = "static/qrcode.png";
+  img.alt = "QR Code to the current page";
+
+  teacherCard.textContent = "";
+  teacherCard.appendChild(img)
+}
+
 // Fetch links from JSON file
 document.addEventListener("DOMContentLoaded", () => {
-  /*
-  document.addEventListener("keydown", (event) => {
-    if (event.key.toLowerCase() === "l") toggleLinks(!teacherMode);
-  });
-  */
-  emptyButton.href = BASE_IP + "/empty";
-  emptyButton.addEventListener("click", (event, message) =>
+  // Listeners for the buttons
+  emptyButton.addEventListener("click", (event, message) => {
+    emptyButton.href = BASE_IP + "/empty";
     teacherClick(event, "Link emptied!")
-  );
+  });
 
-  refreshButton.href= BASE_IP + "/refresh";
-  refreshButton.addEventListener("click", (event, message) =>
+  refreshButton.addEventListener("click", (event, message) => {
+    refreshButton.href= BASE_IP + "/refresh";
     teacherClick(event, "Link refreshed!")
-  );
+  });
 
-  QRCode.addEventListener("click", (event, message) =>
-    QRCode.classList.toggle("hid")
-  );
+  // Listener to hide the card
+  teacherCard.addEventListener("click", (event, message) => {
+    teacherCard.classList.toggle("hid");
+    teacherCard.innterHTML = "";
+  });
 
+  // Make the menu appear when the avatar picture is clicked
   avatarPicture.addEventListener("click", (event, message) =>{
     teacherCard.classList.toggle("hid");
 
     const input = document.createElement("input");
     input.type = "password";
-    input.placeholder = "Password";
     input.classList.add("teacher-input");
 
     teacherCard.innerHTML = "";
@@ -244,10 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  teacherCard.addEventListener("click", (event, message) => {
-    teacherCard.classList.toggle("hid");
-  });
-
+  // Loock for cached data and display if found
   const cachedData = localStorage.getItem("cachedLinks");
   if (cachedData) {
     setTimeout(() => {

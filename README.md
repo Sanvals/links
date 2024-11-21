@@ -49,7 +49,7 @@ cd links
 
 3. Access the 'Teacher Mode':
 
-    - Press the L key to toggle the teacher mode.
+    - Press the avatar picture and enter the password to switch to teacher mode.
     - Links set the URL on the server, and it's sent to the student's laptops.
     - 'Empty' button clears the URL from the database.
     - 'Refresh' button calls Notion server and refresh the links database.

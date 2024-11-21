@@ -128,11 +128,13 @@ function changeMood(mood) {
   });
 }
 
+// Function to toggle style images
 function clickStyles() {
   hideModes = !hideModes;
   pageStyleContainer.style.display = hideModes ? "none" : "flex";
 }
 
+// Start the script on load
 window.addEventListener("load", () => {
   loadStyleImages();
   changeMood(savedMood);
