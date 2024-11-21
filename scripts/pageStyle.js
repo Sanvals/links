@@ -42,7 +42,7 @@ const moods = {
     footerImg:
       "https://my.logiscool.com/static/media/easter-footer.e30df72f.webp",
     mainColor: "rgb(0, 0, 0)",
-    buttonTextColor: "rgb(0, 0, 0)",
+    buttonTextColor: "rgb(255 255 255)",
     buttonColor: "rgb(217 118 212)",
     buttonShadow: "rgb(175 112 172)",
     backColor: "linear-gradient(rgb(107, 217, 225), rgb(233, 251, 252)) fixed",
