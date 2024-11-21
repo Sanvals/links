@@ -31,8 +31,6 @@ let passw = false;
 // Utility functions
 function displayCard(message) {
   card.textContent = message;
-  card.style.opacity = "1";
-  card.style.display = "flex";
 
   setTimeout(() => {
     card.style.opacity = "0";
@@ -159,6 +157,11 @@ function teacherClick(event, message) {
   event.preventDefault();
   const link = event.currentTarget;
   const url = link.getAttribute("href");
+  
+  // Show the card before sending the request
+  card.style.opacity = "1";
+  card.style.display = "flex";
+  card.textContent = "Sending request...";
 
   fetch(url)
     .then((response) => {
@@ -213,6 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Listeners for the buttons
   emptyButton.addEventListener("click", (event, message) => {
     emptyButton.href = BASE_IP + "/empty";
+    card.style.opacity = "1";
     teacherClick(event, "Link emptied!")
   });
 
