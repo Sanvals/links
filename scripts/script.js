@@ -3,25 +3,28 @@
 const BASE_IP = "https://sanvals.pythonanywhere.com";
 const loader = document.querySelector("#loader");
 const container = document.querySelector("main");
-const teacherBadge = document.getElementById("teacherBadge")
 const originalUrls = new Map();
 const errorElement = document.querySelector("#loader-text");
 const errorImage = document.querySelector("#loader-img");
-const card = document.querySelector("#card");
-const emptyButton = document.getElementById("empty-button");
+const avatarPicture = document.getElementById("avatar-picture");
+// Buttons visible on teacher mode
+const teacherBadge = document.getElementById("teacherBadge")
 const dashboardButton = document.getElementById("dashboard-button");
 const refreshButton = document.getElementById('refresh-button');
+const emptyButton = document.getElementById("empty-button");
 const revertButton = document.getElementById('revert-button');
-const avatarPicture = document.getElementById("avatar-picture");
+// Alert messages
 const teacherCard = document.getElementById("teacher-card");
-const teacherPass = "logilogi"
+const card = document.querySelector("#card");
+
+const teacherPass = "logilogi";
 
 const hiddenObjects = [
   teacherBadge,
-  emptyButton,
   dashboardButton,
   refreshButton,
-  revertButton
+  emptyButton,
+  revertButton,
 ]
 
 // State variables
@@ -204,7 +207,7 @@ function showQRCode() {
   teacherCard.classList.toggle("hid");
   
   const img = document.createElement("img");
-  img.src = "static/qrcode.png";
+  img.src = "static/images/qrcode.png";
   img.alt = "QR Code to the current page";
 
   teacherCard.textContent = "";
