@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   refreshButton.addEventListener("click", (event, message) => {
     refreshButton.href= BASE_IP + "/refresh";
-    teacherClick(event, "Link refreshed!")
+    teacherClick(event, "Link database refreshed!")
   });
 
   // Listener to hide the card
