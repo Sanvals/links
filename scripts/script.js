@@ -5,18 +5,14 @@ const loader = document.querySelector("#loader");
 const container = document.querySelector("main");
 const originalUrls = new Map();
 const errorElement = document.querySelector("#loader-text");
-const errorImage = document.querySelector("#loader-img");
 const avatarPicture = document.getElementById("avatar-picture");
-// Buttons visible on teacher mode
 const teacherBadge = document.getElementById("teacherBadge")
 const dashboardButton = document.getElementById("dashboard-button");
 const refreshButton = document.getElementById('refresh-button');
 const emptyButton = document.getElementById("empty-button");
 const revertButton = document.getElementById('revert-button');
-// Alert messages
 const teacherCard = document.getElementById("teacher-card");
 const card = document.querySelector("#card");
-
 const teacherPass = "logilogi";
 
 const hiddenObjects = [
@@ -29,7 +25,6 @@ const hiddenObjects = [
 
 // State variables
 let teacherMode = false;
-let passw = false;
 
 // Utility functions
 function displayCard(message) {
@@ -45,7 +40,6 @@ function displayCard(message) {
 
 function displayError(message, error = null) {
   errorElement.textContent = message;
-  errorImage.style.opacity = 0;
   if (error) console.error(error)
 }
 
@@ -240,6 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const input = document.createElement("input");
     input.type = "password";
+    input.name = "Password";
     input.classList.add("teacher-input");
 
     teacherCard.innerHTML = "";
