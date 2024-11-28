@@ -19,7 +19,7 @@
 
 body {
   font-family: var(--font-family);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 600;
   color: var(--main-color);
 }
@@ -49,10 +49,10 @@ h3 {
   gap: 10px;
   justify-content: center;
   margin: auto;
-  width: 500px;
+  width: 486px;
 }
 
-header a, header button {
+header a, header button, header input {
   font-family: var(--font-family);
   font-size: 0.8rem;
   padding: 10px;
@@ -63,6 +63,27 @@ header a, header button {
   border-radius: 40px;
   transition: background-color, border-color 0.2s;
   width: 109px;
+}
+
+header input:focus-visible {
+  outline: none;
+}
+
+header input {
+  padding-left: 40px;
+  width: 466px;
+}
+
+#search-container {
+  position: relative;
+}
+
+#search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
 }
 
 a:hover, button:hover {
@@ -204,11 +225,6 @@ main {
   opacity: 1;
 }
 
-input {
-  background-color:rgb(12, 14, 39, 0);
-  border: none;
-}
-
 /* Messages on top of the screen */
 .card {
   position: fixed;
@@ -244,6 +260,10 @@ input {
   width: 160px;
 }
 
+.card input:focus-visible {
+  outline: none;
+}
+
 /* Media queries */
 @media (max-width: 600px) {
   .styleImage {
@@ -262,5 +282,15 @@ input {
   header a, header button {
     font-size: 20px;
     width: 60px;
+  }
+
+  header input {
+    font-size: 20px;
+    width: 270px;
+    padding-left: 45px;
+  }
+
+  #search-icon {
+    font-size: 20px;
   }
 }
