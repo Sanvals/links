@@ -157,6 +157,24 @@ details a img {
   left: 11px;
 }
 
+.link-order {
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center; /* Center the content vertically */
+  justify-content: center; /* Center the content horizontally */
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px; /* Fixed width */
+  height: 30px; /* Fixed height (same as width for a circle) */
+  border-radius: 50%; /* Ensures a perfect circle */
+  border-width: 0px;
+  border-style: solid;
+  border-color: rgb(21, 32, 83);
+  text-align: center;
+}
+
 .active-link {
   background-color: green;
 }

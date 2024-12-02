@@ -86,6 +86,11 @@ function displayLinks(data) {
       imgElement.alt = `${linkData.name} icon`;
       imgElement.classList.add("link-icon");
 
+      const orderElement = document.createElement("span");
+      orderElement.textContent = linkData.num;
+      orderElement.classList.add("link-order");
+      linkElement.appendChild(orderElement);
+
       linkElement.appendChild(imgElement);
       linkElement.appendChild(document.createTextNode(linkData.name));
       section.appendChild(linkElement);
