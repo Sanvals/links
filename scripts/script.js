@@ -56,6 +56,7 @@ function toggleObjects (objects) {
 }
 
 function displayLinks(data) {
+  console.log(data)
   const openStates = getOpenStates(); // Step 1: Save current open states
 
   container.innerHTML = "";
@@ -77,6 +78,7 @@ function displayLinks(data) {
       linkElement.target = "_blank";
       linkElement.classList.add("link-item");
       linkElement.setAttribute("aria-label", linkData.name);
+      linkElement.dataset.num = linkData.num;
 
       const imgElement = document.createElement("img");
       imgElement.src = linkData.icon;

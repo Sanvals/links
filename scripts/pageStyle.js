@@ -124,14 +124,14 @@ function changeMood(mood) {
 
   // Update visibility of style images
   document.querySelectorAll(".styleImage").forEach((img) => {
-    img.style.display = img.dataset.mood === mood ? "none" : "block";
+    img.classList.toggle("hid", img.dataset.mood === mood);
   });
 }
 
 // Function to toggle style images
 function clickStyles() {
   hideModes = !hideModes;
-  pageStyleContainer.style.display = hideModes ? "none" : "flex";
+  pageStyleContainer.classList.toggle("hid", hideModes);
 }
 
 // Start the script on load
