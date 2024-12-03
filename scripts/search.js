@@ -1,6 +1,9 @@
 const searchInput = document.getElementById('search-input')
 const reverseIcon = document.getElementById('order-icon')
 
+// State variables
+let reversedLinks = JSON.parse(localStorage.getItem("reversedLinks")) || false;
+
 // Debounce function to delay execution of the search logic
 function debounce(func, delay) {
     let timeout;
@@ -9,6 +12,7 @@ function debounce(func, delay) {
         timeout = setTimeout(() => func(...args), delay);
     };
 };
+
 function handleSearch() {
     // Query dynamic elements only when needed
     const links = document.querySelectorAll('main a');
@@ -27,28 +31,22 @@ function handleSearch() {
     toggles.forEach(toggle => (toggle.open = shouldOpenDetails));
 }
 
-function reverseOrder() {
-    const details = document.querySelectorAll('details');
-    details.forEach(d => {
-        // Grab all the links inside every details element
-        let linkList = Array.from(d.childNodes[1].querySelectorAll('a'))
-
-        // Check if they are already reversed
-        if (linkList[0].dataset.num > linkList[1].dataset.num) {
-            linkList.sort((a, b) => a.dataset.num - b.dataset.num)
-        }
-        // Return them to normal if they are reversed
-        else {
-            linkList.sort((a, b) => b.dataset.num - a.dataset.num)
-        }
-
-        // Clear the list and repopulate
-        d.childNodes[1].textContent = ''
-        linkList.forEach(l => d.childNodes[1].appendChild(l))
+function reverse() {
+    document.querySelectorAll('details').forEach(details => {
+        const container = details.childNodes[1];
+        
+        // Grab all the links and repopulate
+        const linkList = Array.from(container.querySelectorAll('a')).reverse()
+        container.replaceChildren(...linkList);
     });
 }
 
-// Attach the debounced event listener
-searchInput.addEventListener('keyup', debounce(handleSearch, 300));
+function reverseClick() {
+    reverse();
+    reversedLinks = !reversedLinks
+    localStorage.setItem("reversedLinks", JSON.stringify(reversedLinks));
+}
 
-reverseIcon.addEventListener('click', reverseOrder);
+// Start the event listeners
+searchInput.addEventListener('keyup', debounce(handleSearch, 300));
+reverseIcon.addEventListener('click', reverseClick);

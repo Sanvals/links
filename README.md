@@ -20,7 +20,8 @@ A customizable and dynamic web application designed to provide easy access to ed
 - **Responsive**: View links and resources on different devices.
 - **Safe**: For security, links are validated before being set on the server.
 - **Offline Support**: Offline fully functional mode via cached links.
-- **Search**: Search for links by name.
+- **Search**: Search links by name.
+- **Sorting**: Order or reverse the links by appearance and remembers the choice.
 
 ## 🎥 Demo
 

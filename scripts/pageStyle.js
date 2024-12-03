@@ -3,6 +3,8 @@ const pageStyleContainer = document.getElementById("pageStyle");
 const footerImg = document.getElementById("footerImg");
 const showStyles = document.getElementById("showStyles");
 const savedMood = localStorage.getItem("currentMood") || "mood1";
+
+// State variables
 let hideModes = true;
 
 // Define style images

@@ -56,8 +56,8 @@ function toggleObjects (objects) {
 }
 
 function displayLinks(data) {
-  console.log(data)
-  const openStates = getOpenStates(); // Step 1: Save current open states
+  // Save current open states
+  const openStates = getOpenStates();
 
   container.innerHTML = "";
   const fragment = document.createDocumentFragment();
@@ -102,7 +102,9 @@ function displayLinks(data) {
 
   container.appendChild(fragment);
 
-  restoreOpenStates(openStates); // Step 2: Restore previous open states
+  // Restore open states
+  restoreOpenStates(openStates);
+  if (reversedLinks) reverse()
 }
 
 // Function to change all links to the "teacher page" URLs
@@ -167,7 +169,7 @@ function teacherClick(event, message) {
   card.style.display = "flex";
   card.textContent = "Sending request...";
 
-  fetch(url)
+  return fetch(url)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -175,7 +177,7 @@ function teacherClick(event, message) {
       return response.text()
     })
     .then(() => {
-      console.log("Set page: " + url);
+      console.log("Page set: " + url);
       displayCard(message)
     })
     .catch((error) => {
@@ -189,7 +191,7 @@ function getOpenStates() {
   const detailsElements = container.querySelectorAll("details");
   detailsElements.forEach((details) => {
     const summaryText = details.querySelector("summary").textContent;
-    openStates[summaryText] = details.open; // Store whether it is open or closed
+    openStates[summaryText] = details.open;
   });
   return openStates;
 }
@@ -225,8 +227,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   refreshButton.addEventListener("click", (event, message) => {
-    refreshButton.href= BASE_IP + "/refresh";
-    teacherClick(event, "Link database refreshed!")
+    refreshButton.href = BASE_IP + "/refresh";
+    teacherClick(event, "Database refreshed! Reloading page...")
+      .then(() => {
+        return setTimeout(() => {
+          location.reload();
+        }, 2000);
+      })
   });
 
   // Listener to hide the card
@@ -292,7 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
           displayLinks(data);
           container.style.opacity = "1";
-        }, 500);
+        }, 500)
     }
   })
   .catch((error) => displayError("No links found", error));
