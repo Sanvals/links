@@ -1,6 +1,6 @@
 // Constant variables
-const CONNECTBUTTON = document.getElementById("connect-button");
-const CONNECTEMOJI = document.getElementById("connect-emoji")
+const CONNECTBUTTON = $('connect-button');
+const CONNECTEMOJI = $('connect-emoji');
 
 // State variables
 let lastUrl = "";

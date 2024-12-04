@@ -1,18 +1,21 @@
 // Constants
-// const BASE_IP = "http://localhost:5000";
 const BASE_IP = "https://sanvals.pythonanywhere.com";
-const loader = document.querySelector("#loader");
-const container = document.querySelector("main");
+
+// DOM elements
+const $ = (element) => document.getElementById(element);
+const loader = $("loader");
+const errorElement = $("loader-text");
+const container = $('dynamic-links-container');
+const avatarPicture = $("avatar-picture");
+const teacherBadge = $("teacherBadge");
+const dashboardButton = $("dashboard-button");
+const refreshButton = $("refresh-button");
+const emptyButton = $("empty-button");
+const revertButton = $("revert-button");
+const teacherCard = $("teacher-card");
+const card = $("card");
+
 const originalUrls = new Map();
-const errorElement = document.querySelector("#loader-text");
-const avatarPicture = document.getElementById("avatar-picture");
-const teacherBadge = document.getElementById("teacherBadge")
-const dashboardButton = document.getElementById("dashboard-button");
-const refreshButton = document.getElementById('refresh-button');
-const emptyButton = document.getElementById("empty-button");
-const revertButton = document.getElementById('revert-button');
-const teacherCard = document.getElementById("teacher-card");
-const card = document.querySelector("#card");
 const teacherPass = "logilogi";
 
 const hiddenObjects = [
@@ -55,44 +58,75 @@ function toggleObjects (objects) {
   });
 }
 
+function create(tag, attributes = {}, properties = {}) {
+  const element = document.createElement(tag);
+
+  // Apply attributes
+  Object.entries(attributes).forEach(([key, value]) => {
+    element.setAttribute(key, value);
+  });
+
+  // Apply properties
+  Object.entries(properties).forEach(([key, value]) => {
+    element[key] = value;
+  })
+
+  return element;
+}
+
 function displayLinks(data) {
   // Save current open states
   const openStates = getOpenStates();
 
-  container.innerHTML = "";
+  // Prepare the fragment
   const fragment = document.createDocumentFragment();
 
+  // Look through data and build structure
   Object.entries(data).forEach(([tag, catData]) => {
-    const details = document.createElement("details");
-    const summary = document.createElement("summary");
-    summary.textContent = tag;
+    const details = create("details");
+    const summary = create("summary", {}, {textContent: tag});
 
     details.appendChild(summary);
 
-    const section = document.createElement("section");
-    section.setAttribute("aria-label", `${tag} links`);
+    const section = create(
+      "section", 
+      {"aria-label": `${tag} links`}, 
+      {textContent: tag}
+    );
 
     catData.forEach((linkData) => {
-      const linkElement = document.createElement("a");
-      linkElement.href = linkData.url;
-      linkElement.target = "_blank";
-      linkElement.classList.add("link-item");
-      linkElement.setAttribute("aria-label", linkData.name);
-      linkElement.dataset.num = linkData.num;
+      const linkElement = create(
+        "a", 
+        {
+          href: linkData.url,
+          target: "_blank",
+          class: "link-item",
+          "aria-label": linkData.name,
+          "data-num": linkData.num
+        },
+        {
+          textContent: linkData.name
+        }
+      )
 
-      const imgElement = document.createElement("img");
-      imgElement.src = linkData.icon;
-      imgElement.loading = "lazy";
-      imgElement.alt = `${linkData.name} icon`;
-      imgElement.classList.add("link-icon");
+      const imgElement = create(
+        "img", 
+        {
+          src: linkData.icon,
+          loading: "lazy",
+          alt: `${linkData.name} icon`,
+          class: "link-icon"
+        }
+      )
 
-      const orderElement = document.createElement("span");
-      orderElement.textContent = linkData.num;
-      orderElement.classList.add("link-order");
+      const orderElement = create(
+        "span",
+        {class: "link-order"},
+        {textContent: linkData.num},
+      )
+
       linkElement.appendChild(orderElement);
-
       linkElement.appendChild(imgElement);
-      linkElement.appendChild(document.createTextNode(linkData.name));
       section.appendChild(linkElement);
     });
 
@@ -100,7 +134,7 @@ function displayLinks(data) {
     fragment.appendChild(details);
   });
 
-  container.appendChild(fragment);
+  container.replaceChildren(fragment);
 
   // Restore open states
   restoreOpenStates(openStates);
@@ -245,14 +279,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Make the menu appear when the avatar picture is clicked
   avatarPicture.addEventListener("click", (event, message) =>{
     teacherCard.classList.toggle("hid");
+    
+    const input = create(
+      "input", 
+      { type: "password", name: "Password" }
+    )
 
-    const input = document.createElement("input");
-    input.type = "password";
-    input.name = "Password";
-    input.classList.add("teacher-input");
-
-    teacherCard.innerHTML = "";
-    teacherCard.appendChild(input)
+    teacherCard.replaceChildren(input)
     input.focus();
 
     input.addEventListener("keydown", (event) => {
@@ -289,6 +322,36 @@ document.addEventListener("DOMContentLoaded", () => {
       // Process and display the data
       if (!Object.keys(data).length) {
         displayError("Links are empty");
+        
+        card.style.opacity = "1";
+        card.style.display = "flex";
+        card.textContent = "Attempting to reach the database. Please wait...";
+        // If there are no links, refresh the server
+        if (!cachedData) {
+          console.log("No cached links found. Sending refresh request to the server...");
+          
+          // Send the refresh request
+          fetch(BASE_IP + "/refresh")
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Failed to refresh links on the server");
+              }
+              return response.text();
+            })
+            .then(() => {
+              card.style.opacity = "1";
+              card.style.display = "flex";
+              displayCard("Successful! Refreshing page...");
+              
+              // Reload the page after a short delay
+              setTimeout(() => {
+                location.reload();
+              }, 2000);
+            })
+            .catch((error) => {
+              displayError("Failed to refresh links", error);
+            });
+        }
         return;
       }
 

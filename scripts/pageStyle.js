@@ -1,7 +1,9 @@
 // Get the DOM elements
-const pageStyleContainer = document.getElementById("pageStyle");
-const footerImg = document.getElementById("footerImg");
-const showStyles = document.getElementById("showStyles");
+const pageStyleContainer = $('pageStyle');
+const footerImg = $('footerImg');
+const showStyles = $('showStyles')
+
+// Extract saved mood
 const savedMood = localStorage.getItem("currentMood") || "mood1";
 
 // State variables
@@ -86,13 +88,20 @@ const moods = {
 function loadStyleImages() {
   if (!pageStyleContainer) return;
   images.forEach((src, index) => {
-    const imgElement = document.createElement("img");
-    imgElement.src = src;
-    imgElement.alt = "Style option " + (index + 1);
-    imgElement.classList.add("styleImage");
-    imgElement.dataset.mood = "mood" + (index + 1);
-    imgElement.loading = "lazy";
-    imgElement.setAttribute("aria-label", "Style option " + (index + 1));
+    const imgElement = create(
+      "img",
+      {
+        "aria-label": "Style option " + (index + 1),
+        class: "styleImage",
+        "data-mood": "mood" + (index + 1),
+        loading: "lazy",
+        src: src
+      },
+      {
+        alt: "Style option " + (index + 1)
+      }
+    );
+
     pageStyleContainer.appendChild(imgElement);
   });
 

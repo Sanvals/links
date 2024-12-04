@@ -1,5 +1,6 @@
-const searchInput = document.getElementById('search-input')
-const reverseIcon = document.getElementById('order-icon')
+// Get the DOM elements
+const searchInput = $('search-input')
+const reverseIcon = $('order-icon')
 
 // State variables
 let reversedLinks = JSON.parse(localStorage.getItem("reversedLinks")) || false;
