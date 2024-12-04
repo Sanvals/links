@@ -90,8 +90,7 @@ function displayLinks(data) {
 
     const section = create(
       "section", 
-      {"aria-label": `${tag} links`}, 
-      {textContent: tag}
+      {"aria-label": `${tag} links`}
     );
 
     catData.forEach((linkData) => {
@@ -323,11 +322,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!Object.keys(data).length) {
         displayError("Links are empty");
         
-        card.style.opacity = "1";
-        card.style.display = "flex";
-        card.textContent = "Attempting to reach the database. Please wait...";
         // If there are no links, refresh the server
         if (!cachedData) {
+          card.style.opacity = "1";
+          card.style.display = "flex";
+          card.textContent = "Attempting to reach the database. Please wait...";
           console.log("No cached links found. Sending refresh request to the server...");
           
           // Send the refresh request
