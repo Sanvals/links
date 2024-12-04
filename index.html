@@ -17,7 +17,8 @@
     <link rel="icon" href="static/images/avatar.jpg" type="image/x-icon">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="styles.css"></noscript>
   </head>
   <body>
     <!-- Page Syle icons -->
