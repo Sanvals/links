@@ -12,11 +12,13 @@ function send() {
         body: formData,
     };
 
+    card.style.opacity = "1";
+    card.style.display = "flex";
+    card.textContent = "Uploading file...";
+
     fetch(BASE_IP + "/upload", requestOptions)
         .then(() => {
             document.getElementById("upload-input").value = "";
+            displayCard("File uploaded to Students Creations");
         })
-        .then(() => {
-            console.log("File uploaded successfully");
-        });
 }
