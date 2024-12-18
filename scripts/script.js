@@ -1,5 +1,6 @@
 // Constants
 const BASE_IP = "https://sanvals.pythonanywhere.com";
+// const BASE_IP = "http://127.0.0.1:5000";
 
 // DOM elements
 const $ = (element) => document.getElementById(element);
@@ -343,9 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
               displayCard("Successful! Refreshing page...");
               
               // Reload the page after a short delay
-              setTimeout(() => {
-                location.reload();
-              }, 2000);
+              setTimeout(() => {location.reload();}, 2000);
             })
             .catch((error) => {
               displayError("Failed to refresh links", error);

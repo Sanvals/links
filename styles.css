@@ -52,7 +52,7 @@ h3 {
   width: 486px;
 }
 
-header a, header button, header input {
+header a, header button, header input, header label {
   font-family: var(--font-family);
   font-size: 0.8rem;
   padding: 10px;
@@ -101,10 +101,30 @@ header input {
   }
 }
 
-a:hover, button:hover {
+#upload-label {
+  position: absolute;
+  right: 36px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  cursor: pointer;
+  width: auto;
+  border: none;
+  background: none;
+  transition: transform 0.5s ease;
+  &:hover {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+a:hover, button:hover, label:hover {
   background-color: var(--button-shadow);
   border-color: var(--button-shadow);
   cursor: pointer;
+}
+
+::file-selector-button {
+  display: none;
 }
 
 .connected {
@@ -302,16 +322,16 @@ main {
   }
 
   header #short-links {
-    width: 300px;
+    width: 289px;
   }
 
   .short-link-text {
     display: none;
   }
 
-  header a, header button {
+  header a, header button, header label {
     font-size: 20px;
-    width: 60px;
+    width: 50px;
   }
 
   header input {
